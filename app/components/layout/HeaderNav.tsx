@@ -36,6 +36,7 @@ import { afterNextPaint } from '../../lib/afterNextPaint';
 import { builtInMenuKind, type BuiltInMenuKind } from '../../lib/menuItemKind';
 import { openStoreSwitcher, type StoreSwitcher } from '../../lib/storeSwitchers';
 import { pruneUntitled } from '../../lib/menuOverflow';
+import { IQRA_MENU } from '../../lib/brandMenu';
 
 interface HeaderNavProps {
   open: boolean;
@@ -431,7 +432,11 @@ function useDrawerTransition(open: boolean) {
  */
 export const HeaderNav = memo(function HeaderNav({ open, onClose }: HeaderNavProps) {
   const { data: rawItems = [] } = useQuery(menu.queries.header());
-  const items = useMemo(() => pruneUntitled(rawItems), [rawItems]);
+  // Empty store menu → the Iqraa brand tree, same as the desktop mega menu.
+  const items = useMemo(() => {
+    const storeItems = pruneUntitled(rawItems);
+    return storeItems.length ? storeItems : IQRA_MENU;
+  }, [rawItems]);
 
   const { rootRef, mounted, entered, itemsIn } = useDrawerTransition(open);
 

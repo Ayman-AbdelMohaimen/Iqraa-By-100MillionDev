@@ -1,0 +1,450 @@
+{
+  "enabled": true,
+  "settings": {
+    "product_card_layout": "horizontal",
+    "product_card_img_ratio": "square",
+    "header_layout": "default"
+  },
+  "layout": [
+    {
+      "id": "b-d62e3b3ca262",
+      "path": "enhanced-slider",
+      "fields": {
+        "in_container": false,
+        "auto_play": true,
+        "position": 1,
+        "key": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        },
+        "slides": [
+          {
+            "image": "https://cdn.files.salla.network/other/1935517889/77ef714f-cec6-4030-b79e-1834d356604b-original.webp",
+            "title": "اقرأ بلا حدود",
+            "description": "أجهزة BOOX للقراءة والكتابة بالحبر الإلكتروني — شحن مجاني وتقسيط يصل إلى 4 أشهر.",
+            "btnname": "تسوّق الآن",
+            "url": "https://readboox.com/ar/latest-products",
+            "without_overlay": false,
+            "__hidden": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "b-69fecd0db531",
+      "path": "main-links",
+      "fields": {
+        "ar": {
+          "title": "تسوّق حسب القسم"
+        },
+        "key": "2b1b130b-5b37-422a-9683-e0fd367460c0",
+        "links": [
+          {
+            "ar": {
+              "title": "وصل حديثاً"
+            },
+            "icon": "sicon-packed-box",
+            "title": "وصل حديثاً",
+            "url": "https://readboox.com/ar/new-arrivals/c1136262562",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "شاشة كبيرة"
+            },
+            "icon": "sicon-fabric-swatch",
+            "title": "شاشة كبيرة",
+            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "شاشة متوسطة"
+            },
+            "icon": "sicon-barcode-scan",
+            "title": "شاشة متوسطة",
+            "url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "شاشة ملونة"
+            },
+            "icon": "sicon-image-carousel",
+            "title": "شاشة ملونة",
+            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "حافظات وأغلفة"
+            },
+            "icon": "sicon-inbox-full",
+            "title": "حافظات وأغلفة",
+            "url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "الأقلام والملحقات"
+            },
+            "icon": "sicon-calendar-date",
+            "title": "الأقلام والملحقات",
+            "url": "https://readboox.com/ar/اقلام-ستايلس-اجهزة-بووكس/c723067992",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "أجهزة التحكم"
+            },
+            "icon": "sicon-game-controller-alt",
+            "title": "أجهزة التحكم",
+            "url": "https://readboox.com/ar/اجهزة-تحكم-ريموت-اجهزة-بووكس/c547979611",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "تخفيضات"
+            },
+            "icon": "sicon-store2",
+            "title": "تخفيضات",
+            "url": "https://readboox.com/ar/offers",
+            "__hidden": ""
+          }
+        ],
+        "versions": null,
+        "show_cats": false,
+        "show_controls": true,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        },
+        "merge_with_top_component": false,
+        "title": "تسوّق حسب القسم"
+      }
+    },
+    {
+      "id": "b-17d641ab72a0",
+      "path": "fixed-products",
+      "fields": {
+        "products": {
+          "source": "latest"
+        },
+        "title": "وصل حديثاً",
+        "limit": 10,
+        "isVertical": true,
+        "display_all_url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/latest-products",
+        "position": 1,
+        "key": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        }
+      }
+    },
+    {
+      "id": "b-1a9e77cc4801",
+      "path": "products-slider",
+      "fields": {
+        "products": {
+          "source": "latest"
+        },
+        "title": "الأكثر مبيعاً",
+        "limit": 8,
+        "display_all_url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/latest-products",
+        "position": 1,
+        "key": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        }
+      }
+    },
+    {
+      "id": "b-f1ba05c103e0",
+      "path": "enhanced-square-banners",
+      "fields": {
+        "key": "b89edc4a-ce0b-468f-8323-2da48147bb32",
+        "banners": [
+          {
+            "ar": {
+              "title": "وصل حديثاً",
+              "description": "أحدث أجهزة BOOX للقراءة والكتابة"
+            },
+            "title": "وصل حديثاً",
+            "description": "أحدث أجهزة BOOX للقراءة والكتابة",
+            "image": "https://cdn.salla.sa/WZNRy/e4d7bb4e-afb7-4c8d-aa5d-d060362ea240-500x500-a6mvtpuxbJ0CRsSxPMNbFdXl45sCasJsJpRKo6SY.jpg",
+            "url": "https://readboox.com/ar/new-arrivals/c1136262562",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "شاشة كبيرة",
+              "description": "مساحة أوسع للكتب والملفات والملاحظات"
+            },
+            "title": "شاشة كبيرة",
+            "description": "مساحة أوسع للكتب والملفات والملاحظات",
+            "image": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
+            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "شاشة متوسطة",
+              "description": "خفيفة تناسب القراءة اليومية والتنقل"
+            },
+            "title": "شاشة متوسطة",
+            "description": "خفيفة تناسب القراءة اليومية والتنقل",
+            "image": "https://cdn.salla.sa/WZNRy/070efc43-c38e-4091-bcbc-d362f9317535-500x500-ImgpICR0OMgGoLViB7rzIws9EStENQMa2Ukjlzaw.jpg",
+            "url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "شاشة ملونة",
+              "description": "للكتب المصورة والملاحظات الملوّنة"
+            },
+            "title": "شاشة ملونة",
+            "description": "للكتب المصورة والملاحظات الملوّنة",
+            "image": "https://cdn.salla.sa/WZNRy/fb4b6782-cde7-4a13-a8c0-a5e8601cfb61-500x500-Yvg5t7SQ7sifPdOZo8vTKBroLtFQtmHdxh3emqOR.jpg",
+            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "حافظات وملحقات",
+              "description": "أقلام ورؤوس أقلام وأجهزة تحكم"
+            },
+            "title": "حافظات وملحقات",
+            "description": "أقلام ورؤوس أقلام وأجهزة تحكم",
+            "image": "https://cdn.salla.sa/WZNRy/929f2970-4d7a-479b-a4a6-1c974cc66195-500x500-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg",
+            "url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317",
+            "__hidden": ""
+          }
+        ],
+        "versions": null,
+        "languages": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        }
+      }
+    },
+    {
+      "id": "b-feb35bc58b8d",
+      "path": "store-features",
+      "fields": {
+        "features": [
+          {
+            "icon": "sicon-shipping-fast",
+            "title": "شحن مجاني",
+            "description": "شحن مجاني على أجهزة القراءة الإلكترونية"
+          },
+          {
+            "icon": "sicon-store2",
+            "title": "مدفوعات آمنة",
+            "description": "مدفوعات آمنة وأقساط تصل إلى 4 أشهر"
+          },
+          {
+            "icon": "sicon-fire",
+            "title": "شحن سريع",
+            "description": "شحن سريع خلال 24 ساعة لبعض المناطق"
+          }
+        ],
+        "position": 1,
+        "key": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        }
+      }
+    },
+    {
+      "id": "b-7d9c0f72432b",
+      "path": "custom-testimonials",
+      "fields": {
+        "key": "541cc423-90c7-4230-8a33-a0342cfde4ad",
+        "items": [
+          {
+            "ar": {
+              "text": "ممتاز... الشحنة جاءت بحالة ممتازة وفي وقت ممتاز."
+            },
+            "name": "أسامة العمودي",
+            "text": "ممتاز... الشحنة جاءت بحالة ممتازة وفي وقت ممتاز.",
+            "stars": 5,
+            "avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "text": "الدعم الفني متعاون، والمنتج في اليد يبان فخم، والجهاز استعماله للكتابة جميل."
+            },
+            "name": "حذيفة",
+            "text": "الدعم الفني متعاون، والمنتج في اليد يبان فخم، والجهاز استعماله للكتابة جميل.",
+            "stars": 5,
+            "avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "text": "أجهزة وخدمات ممتازة وتوصيل سريع، شكراً لكم."
+            },
+            "name": "يزيد بن زكي الصبحي",
+            "text": "أجهزة وخدمات ممتازة وتوصيل سريع، شكراً لكم.",
+            "stars": 5,
+            "avatar": "https://cdn.salla.sa/customer_profiles/LLzSG6KlVcv873h57kEJ9ZzbhqRIzcqtjMz9Gjca.jpg",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "text": "رهيبين بالتعامل والجهاز رهيب وجديد."
+            },
+            "name": "عبدالله القرني",
+            "text": "رهيبين بالتعامل والجهاز رهيب وجديد.",
+            "stars": 5,
+            "avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
+            "__hidden": ""
+          }
+        ],
+        "versions": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        },
+        "ar": {
+          "title": "آراء العملاء",
+          "description": "تجارب حقيقية لعملاء متجر اقرأ"
+        },
+        "title": "آراء العملاء",
+        "description": "تجارب حقيقية لعملاء متجر اقرأ"
+      }
+    },
+    {
+      "id": "b-0131ebaed507",
+      "path": "blog",
+      "fields": {
+        "ar": {
+          "title": "مدونة اقرأ",
+          "description": "مقالات ونصائح عن القراءة الإلكترونية وأجهزة BOOX."
+        },
+        "key": "f3372a16-2ec0-4345-b03f-867f443f628e",
+        "posts": [
+          {
+            "id": "-/a-1673272609",
+            "title": "كيف تختار جهاز القراءة الإلكتروني المناسب؟",
+            "promotion_title": "دليلك لاختيار جهاز BOOX المناسب لقراءتك",
+            "body": "<p>اختيار جهاز القراءة الإلكتروني يعتمد على طريقة استخدامك: إن كنت تقرأ الكتب والملفات الطويلة فركّز على مقاس الشاشة الكبير، وإن كنت تقرأ في التنقل فالأجهزة المتوسطة والجيبية أخفّ وأسهل.</p><p>بعد المقاس، انظر إلى دقة الشاشة (PPI) والإضاءة الأمامية ومدة البطارية، ثم إلى دعم القلم إن كنت تدوّن ملاحظاتك على الهامش.</p>",
+            "summary": "من حجم الشاشة إلى مدة البطارية، تعرّف على أهم المعايير قبل شراء جهاز القراءة.",
+            "image": {
+              "url": "https://cdn.salla.sa/WZNRy/e4d7bb4e-afb7-4c8d-aa5d-d060362ea240-500x500-a6mvtpuxbJ0CRsSxPMNbFdXl45sCasJsJpRKo6SY.jpg",
+              "alt": "كيف تختار جهاز القراءة الإلكتروني المناسب؟"
+            },
+            "thumbnail": "https://cdn.salla.sa/WZNRy/e4d7bb4e-afb7-4c8d-aa5d-d060362ea240-500x500-a6mvtpuxbJ0CRsSxPMNbFdXl45sCasJsJpRKo6SY.jpg",
+            "has_image": true,
+            "created_at": {
+              "year": 2024,
+              "month": 12,
+              "day": 31,
+              "dayOfWeek": 2,
+              "dayOfYear": 366,
+              "hour": 11,
+              "minute": 39,
+              "second": 22,
+              "micro": 0,
+              "timestamp": 1735634362,
+              "formatted": "2024-12-31 11:39:22",
+              "timezone": "<object>"
+            },
+            "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/-/a-1673272609",
+            "author": {
+              "name": "Demo Store",
+              "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/author/830898378"
+            },
+            "tags": [],
+            "likes_count": 0,
+            "comments_count": 0
+          },
+          {
+            "id": "-/a-1141563175",
+            "title": "شاشة الحبر الإلكتروني الملونة: لمن تناسب؟",
+            "promotion_title": "متى تحتاج شاشة ملونة فعلًا؟",
+            "body": "<p>شاشات الحبر الإلكتروني الملونة مناسبة للكتب المصورة والقصص والأغلفة والملاحظات الملوّنة، مع بقاء ميزة الحبر الإلكتروني الأساسية: قراءة مريحة للعين واستهلاك بطارية منخفض.</p><p>إذا كانت قراءتك في الغالب نصوصًا طويلة باللونين الأبيض والأسود، فالشاشة أحادية اللون تعطيك تباينًا أعلى ووضوحًا أكبر للنص.</p>",
+            "summary": "الملوّنة ممتعة للكتب المصورة والملاحظات، لكنها ليست الخيار الأول لكل قارئ.",
+            "image": {
+              "url": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
+              "alt": "شاشة الحبر الإلكتروني الملونة: لمن تناسب؟"
+            },
+            "thumbnail": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
+            "has_image": true,
+            "created_at": {
+              "year": 2024,
+              "month": 12,
+              "day": 31,
+              "dayOfWeek": 2,
+              "dayOfYear": 366,
+              "hour": 11,
+              "minute": 31,
+              "second": 17,
+              "micro": 0,
+              "timestamp": 1735633877,
+              "formatted": "2024-12-31 11:31:17",
+              "timezone": "<object>"
+            },
+            "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/-/a-1141563175",
+            "author": {
+              "name": "Demo Store",
+              "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/author/830898378"
+            },
+            "tags": [],
+            "likes_count": 0,
+            "comments_count": 0
+          },
+          {
+            "id": "-/a-160640909",
+            "title": "ملحقات جهاز BOOX: ماذا تضيف مع جهازك؟",
+            "promotion_title": "القلم والحافظة والريموت",
+            "body": "<p>القلم يفتح لك باب التدوين والتظليل داخل الكتب، والحافظة تحمي الشاشة أثناء التنقل، أما أجهزة التحكم فتجعل تقليب الصفحات أسهل عند القراءة في وضع الاسترخاء.</p><p>اختر الملحقات المتوافقة مع سلسلة جهازك: Note و Tab و GO و Palma لكل منها حافظاتها وأقلامها الخاصة.</p>",
+            "summary": "ثلاثة ملحقات تصنع فرقًا حقيقيًا في تجربة القراءة والكتابة.",
+            "image": {
+              "url": "https://cdn.salla.sa/WZNRy/070efc43-c38e-4091-bcbc-d362f9317535-500x500-ImgpICR0OMgGoLViB7rzIws9EStENQMa2Ukjlzaw.jpg",
+              "alt": "ملحقات جهاز BOOX: ماذا تضيف مع جهازك؟"
+            },
+            "thumbnail": "https://cdn.salla.sa/WZNRy/070efc43-c38e-4091-bcbc-d362f9317535-500x500-ImgpICR0OMgGoLViB7rzIws9EStENQMa2Ukjlzaw.jpg",
+            "has_image": true,
+            "created_at": {
+              "year": 2024,
+              "month": 11,
+              "day": 7,
+              "dayOfWeek": 4,
+              "dayOfYear": 312,
+              "hour": 17,
+              "minute": 38,
+              "second": 5,
+              "micro": 0,
+              "timestamp": 1730990285,
+              "formatted": "2024-11-07 17:38:05",
+              "timezone": "<object>"
+            },
+            "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/-/a-160640909",
+            "author": {
+              "name": "Demo Store",
+              "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/author/830898378"
+            },
+            "tags": [],
+            "likes_count": 0,
+            "comments_count": 0
+          }
+        ],
+        "versions": null,
+        "background_color": "#f9fafb",
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        },
+        "title": "مدونة اقرأ",
+        "description": "مقالات ونصائح عن القراءة الإلكترونية وأجهزة BOOX."
+      }
+    }
+  ]
+}

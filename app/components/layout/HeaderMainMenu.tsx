@@ -24,6 +24,7 @@ import {
   pruneUntitled,
   splitMenu,
 } from '../../lib/menuOverflow';
+import { IQRA_MENU } from '../../lib/brandMenu';
 
 /** Layout effects measure before paint; on the server there is nothing to measure. */
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
@@ -72,7 +73,14 @@ export function HeaderMainMenu() {
   const oneLine =
     (theme?.settings as { enable_more_menu?: boolean } | undefined)?.enable_more_menu !== false;
   const { data: rawItems = NO_ITEMS } = useQuery(menu.queries.header());
-  const items = useMemo(() => pruneUntitled(rawItems), [rawItems]);
+  // This is the Iqraa brand theme, so the storefront keeps a complete main menu
+  // even when the store's own header menu is empty (the dev store has none):
+  // the brand tree in `lib/brandMenu` fills in. Once the merchant builds a menu,
+  // theirs replaces it everywhere — drawer included, see `useNavHasContent`.
+  const items = useMemo(() => {
+    const storeItems = pruneUntitled(rawItems);
+    return storeItems.length ? storeItems : IQRA_MENU;
+  }, [rawItems]);
 
   if (!oneLine) {
     return (

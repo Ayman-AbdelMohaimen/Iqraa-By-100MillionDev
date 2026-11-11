@@ -133,9 +133,9 @@
       "required": true,
       "selected": [
         {
-          "label": "المبسّط (Lite)",
-          "value": "lite",
-          "key": "header-layout-lite"
+          "label": "الافتراضي (Default)",
+          "value": "default",
+          "key": "header-layout-default"
         }
       ],
       "options": [
@@ -533,16 +533,22 @@
           "item_label": "صورة",
           "value": [
             {
-              "slides.image": "https://cdn.salla.sa/ZrBEO/MopzhoqpTkDObcKc8Q8n77AuydanfsGXdZO7iinH.jpg",
-              "slides.title": "روِّج لمنتجاتك كصور متحركة",
-              "slides.description": "اعرض المنتجات التي تود إبرازها لزوّار متجرك في هذه المساحة",
-              "slides.without_overlay": false
+              "slides.image": "https://cdn.files.salla.network/other/1935517889/77ef714f-cec6-4030-b79e-1834d356604b-original.webp",
+              "slides.title": "",
+              "slides.description": "",
+              "slides.without_overlay": true,
+              "slides.url__type": "custom",
+              "slides.url": "https://readboox.com/ar/latest-products",
+              "__hidden": ""
             },
             {
-              "slides.image": "https://cdn.salla.sa/ZrBEO/3gOhYSaIhaHxhH2IHWxJYDl9JHwxP6dGKiZFSq4K.jpg",
-              "slides.title": "شجّع زوار متجرك على الشراء عبر عروض خاصة",
-              "slides.description": "اعرض المنتجات التي تود إبرازها لزوّار متجرك في هذه المساحة",
-              "slides.without_overlay": false
+              "slides.image": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
+              "slides.title": "أجهزة BOOX للقراءة والكتابة",
+              "slides.description": "شاشة حبر إلكتروني مريحة للعين، شحن مجاني وتقسيط يصل إلى 4 أشهر.",
+              "slides.without_overlay": false,
+              "slides.url__type": "custom",
+              "slides.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342",
+              "__hidden": ""
             }
           ],
           "fields": [
@@ -737,16 +743,13 @@
           "item_label": "صورة",
           "value": [
             {
-              "slides.image": "https://cdn.salla.sa/ZrBEO/MopzhoqpTkDObcKc8Q8n77AuydanfsGXdZO7iinH.jpg",
-              "slides.title": "روِّج لمنتجاتك كصور متحركة",
-              "slides.description": "اعرض المنتجات التي تود إبرازها لزوّار متجرك في هذه المساحة",
-              "slides.without_overlay": false
-            },
-            {
-              "slides.image": "https://cdn.salla.sa/ZrBEO/3gOhYSaIhaHxhH2IHWxJYDl9JHwxP6dGKiZFSq4K.jpg",
-              "slides.title": "شجّع زوار متجرك على الشراء عبر عروض خاصة",
-              "slides.description": "اعرض المنتجات التي تود إبرازها لزوّار متجرك في هذه المساحة",
-              "slides.without_overlay": false
+              "slides.image": "https://cdn.files.salla.network/other/1935517889/77ef714f-cec6-4030-b79e-1834d356604b-original.webp",
+              "slides.title": "",
+              "slides.description": "",
+              "slides.without_overlay": true,
+              "slides.url__type": "custom",
+              "slides.url": "https://readboox.com/ar/latest-products",
+              "__hidden": ""
             }
           ],
           "fields": [
@@ -1021,38 +1024,51 @@
           "value": [
             {
               "links.icon": "sicon-packed-box",
-              "links.title": "منتج جاهز",
-              "links.url__type": "offers_link"
+              "links.title": "وصل حديثاً",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/new-arrivals/c1136262562"
             },
             {
               "links.icon": "sicon-fabric-swatch",
-              "links.title": "خدمة حسب الطلب",
-              "links.url__type": "offers_link"
-            },
-            {
-              "links.icon": "sicon-cake",
-              "links.title": "أكل ومشروبات",
-              "links.url__type": "offers_link"
-            },
-            {
-              "links.icon": "sicon-game-controller-alt",
-              "links.title": "منتج رقمي",
-              "links.url__type": "offers_link"
+              "links.title": "شاشة كبيرة",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342"
             },
             {
               "links.icon": "sicon-barcode-scan",
-              "links.title": "بطاقة رقمية",
-              "links.url__type": "offers_link"
+              "links.title": "شاشة متوسطة",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739"
+            },
+            {
+              "links.icon": "sicon-image-carousel",
+              "links.title": "شاشة ملونة",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589"
             },
             {
               "links.icon": "sicon-inbox-full",
-              "links.title": "مجموعة منتجات",
-              "links.url__type": "offers_link"
+              "links.title": "حافظات وأغلفة",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317"
             },
             {
               "links.icon": "sicon-calendar-date",
-              "links.title": "حجوزات",
-              "links.url__type": "offers_link"
+              "links.title": "الأقلام والملحقات",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/اقلام-ستايلس-اجهزة-بووكس/c723067992"
+            },
+            {
+              "links.icon": "sicon-game-controller-alt",
+              "links.title": "أجهزة التحكم",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/اجهزة-تحكم-ريموت-اجهزة-بووكس/c547979611"
+            },
+            {
+              "links.icon": "sicon-store2",
+              "links.title": "تخفيضات",
+              "links.url__type": "custom",
+              "links.url": "https://readboox.com/ar/offers"
             }
           ],
           "fields": [
@@ -1884,34 +1900,39 @@
           "item_label": "صورة",
           "value": [
             {
-              "banners.image": "https://cdn.salla.sa/mQgZlG/pzOCEw10wCfXeVSpKnL0Ifd1O9ZkTfnZ17RkE14R.jpg",
-              "banners.url": null,
-              "banners.title": "تصفَّح حسب التصنيف",
-              "banners.description": "سهِّل تجربة التسوُّق والوصول لمنتجاتك"
+              "banners.image": "https://cdn.salla.sa/WZNRy/e4d7bb4e-afb7-4c8d-aa5d-d060362ea240-500x500-a6mvtpuxbJ0CRsSxPMNbFdXl45sCasJsJpRKo6SY.jpg",
+              "banners.title": "وصل حديثاً",
+              "banners.description": "أحدث أجهزة BOOX للقراءة والكتابة",
+              "banners.url__type": "custom",
+              "banners.url": "https://readboox.com/ar/new-arrivals/c1136262562"
             },
             {
-              "banners.image": "https://cdn.salla.sa/mQgZlG/lkyDjYwvWJNmAQoGnLALLcUkm66rCCDbTyVlSGdH.jpg",
-              "banners.url": null,
-              "banners.title": "تصفَّح حسب التصنيف",
-              "banners.description": "سهِّل تجربة التسوُّق والوصول لمنتجاتك"
+              "banners.image": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
+              "banners.title": "شاشة كبيرة",
+              "banners.description": "مساحة أوسع للكتب والملفات والملاحظات",
+              "banners.url__type": "custom",
+              "banners.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342"
             },
             {
-              "banners.image": "https://cdn.salla.sa/mQgZlG/lkyDjYwvWJNmAQoGnLALLcUkm66rCCDbTyVlSGdH.jpg",
-              "banners.url": null,
-              "banners.title": "تصفَّح حسب التصنيف",
-              "banners.description": "سهِّل تجربة التسوُّق والوصول لمنتجاتك"
+              "banners.image": "https://cdn.salla.sa/WZNRy/070efc43-c38e-4091-bcbc-d362f9317535-500x500-ImgpICR0OMgGoLViB7rzIws9EStENQMa2Ukjlzaw.jpg",
+              "banners.title": "شاشة متوسطة",
+              "banners.description": "خفيفة تناسب القراءة اليومية والتنقل",
+              "banners.url__type": "custom",
+              "banners.url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739"
             },
             {
-              "banners.image": "https://cdn.salla.sa/mQgZlG/lkyDjYwvWJNmAQoGnLALLcUkm66rCCDbTyVlSGdH.jpg",
-              "banners.url": null,
-              "banners.title": "تصفَّح حسب التصنيف",
-              "banners.description": "سهِّل تجربة التسوُّق والوصول لمنتجاتك"
+              "banners.image": "https://cdn.salla.sa/WZNRy/fb4b6782-cde7-4a13-a8c0-a5e8601cfb61-500x500-Yvg5t7SQ7sifPdOZo8vTKBroLtFQtmHdxh3emqOR.jpg",
+              "banners.title": "شاشة ملونة",
+              "banners.description": "للكتب المصورة والملاحظات الملوّنة",
+              "banners.url__type": "custom",
+              "banners.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589"
             },
             {
-              "banners.image": "https://cdn.salla.sa/mQgZlG/lkyDjYwvWJNmAQoGnLALLcUkm66rCCDbTyVlSGdH.jpg",
-              "banners.url": null,
-              "banners.title": "تصفَّح حسب التصنيف",
-              "banners.description": "سهِّل تجربة التسوُّق والوصول لمنتجاتك"
+              "banners.image": "https://cdn.salla.sa/WZNRy/929f2970-4d7a-479b-a4a6-1c974cc66195-500x500-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg",
+              "banners.title": "حافظات وملحقات",
+              "banners.description": "أقلام ورؤوس أقلام وأجهزة تحكم",
+              "banners.url__type": "custom",
+              "banners.url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317"
             }
           ],
           "fields": [
@@ -2107,28 +2128,28 @@
           "icon": "sicon-list-add",
           "value": [
             {
-              "items.name": "ندى الحسيني",
-              "items.avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_female.png",
-              "items.stars": 5,
-              "items.text": "وصلتني اليوم  وطلعت جميلة متحمسة أجربها ❤️"
+              "items.name": "أسامة العمودي",
+              "items.avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
+              "items.text": "ممتاز... الشحنة جاءت بحالة ممتازة وفي وقت ممتاز.",
+              "items.stars": 5
             },
             {
-              "items.name": "خالد الأحمد",
+              "items.name": "حذيفة",
               "items.avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
-              "items.stars": 5,
-              "items.text": "اشتريت من هنا لعيالي وصراحة شئ لا يعلى عليه 👏"
+              "items.text": "الدعم الفني متعاون، والمنتج في اليد يبان فخم، والجهاز استعماله للكتابة جميل.",
+              "items.stars": 5
             },
             {
-              "items.name": "خالد المسعودي",
-              "items.avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
-              "items.stars": 5,
-              "items.text": "رهيبين يفكون أزمة. 👌"
+              "items.name": "يزيد بن زكي الصبحي",
+              "items.avatar": "https://cdn.salla.sa/customer_profiles/LLzSG6KlVcv873h57kEJ9ZzbhqRIzcqtjMz9Gjca.jpg",
+              "items.text": "أجهزة وخدمات ممتازة وتوصيل سريع، شكراً لكم.",
+              "items.stars": 5
             },
             {
-              "items.name": "عبدالعزيز اليامي",
+              "items.name": "عبدالله القرني",
               "items.avatar": "https://cdn.assets.salla.network/prod/stores/themes/default/assets/images/avatar_male.png",
-              "items.stars": 5,
-              "items.text": "أحب هذا المتجر وتعاملهم الراقي مع العملاء ❤️"
+              "items.text": "رهيبين بالتعامل والجهاز رهيب وجديد.",
+              "items.stars": 5
             }
           ],
           "fields": [
@@ -2210,7 +2231,7 @@
           "label": "العنوان الرئيسي",
           "multilanguage": true,
           "id": "title",
-          "value": "المدونة",
+          "value": "مدونة اقرأ",
           "required": false,
           "format": "text",
           "description": "يظهر أعلى المقالات. اتركه فارغاً لإخفائه.",
@@ -2224,7 +2245,7 @@
           "label": "العنوان الفرعي",
           "multilanguage": true,
           "id": "description",
-          "value": null,
+          "value": "مقالات ونصائح عن القراءة الإلكترونية وأجهزة BOOX.",
           "required": false,
           "format": "text",
           "description": "يظهر أسفل العنوان الرئيسي بخط أصغر. اتركه فارغاً لإخفائه.",
