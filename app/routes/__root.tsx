@@ -43,6 +43,10 @@ function RootComponent() {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Iqraa brand typeface. The engine may also inject the store's font; the
+            `--font-main` token in 01-settings/global.scss wins over it. */}
+        <link rel="preconnect" href="https://cdn.salla.network" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.salla.network/fonts/pingarlt.css?v=2.0.5" />
         {/* Home and product paint from inline critical CSS; `bootClient` adds the full sheet once
             their first screen has painted. Other routes: the full sheet blocks, as before. */}
         <ThemeStylesheet href={appCssUrl} critical={CRITICAL_CSS} />

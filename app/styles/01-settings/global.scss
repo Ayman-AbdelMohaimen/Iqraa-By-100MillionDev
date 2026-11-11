@@ -9,6 +9,39 @@ $main-color: var(--color-primary);
 $infinte-color: var(--infinte-color);
 $main-text-color: var(--main-text-color);
 
+/**
+ * Iqraa brand tokens.
+ *
+ * The engine injects the merchant's colour and font settings as a `:root` rule
+ * in the document head, so `:root:root` (a higher specificity) is used to keep
+ * the approved Iqraa design in place regardless of the store's own palette.
+ * Delete this block (or drop the doubled selector) to hand colour control back
+ * to the merchant's theme settings.
+ *
+ * Palette sampled from the approved design references in `/media`:
+ * primary #5A148C, light #8228BE, card/lavender #E6DCFA.
+ */
+:root:root {
+  /* `!important` is required: the engine writes the store's palette as an *inline*
+     style on <html>, and an inline declaration outranks any selector. Only the
+     brand tokens are forced; the rest of the store's tokens still apply. */
+  --font-main: 'PingARLT', 'Dubai', 'Segoe UI', Tahoma, sans-serif !important;
+
+  --color-primary: #5a148c !important;
+  --color-primary-dark: #460f6b !important;
+  --color-primary-light: #8228be !important;
+  --color-primary-reverse: #f4e9ff !important;
+
+  /* Inner surfaces: soft lavender cards, tinted section backgrounds. */
+  --iqraa-lavender: #e6dcfa;
+  --iqraa-lavender-soft: #f3edfd;
+  --iqraa-ink: #241533;
+  --iqraa-muted: #6b5b7a;
+
+  /* Design cards are noticeably rounded; matches the live store's .75rem. */
+  --s-radius: 0.75rem;
+}
+
 // Default CSS custom properties (can be overridden by consuming theme)
 :root {
   // Twilight web components ship their own CSS and read only this token for the
