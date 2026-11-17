@@ -4,7 +4,7 @@
     "ar": "Iqraa By 100MillionDev",
     "en": "Iqraa By 100MillionDev"
   },
-  "repository": "https://github.com/SallaApp/theme-raed-react",
+  "repository": "https://github.com/Ayman-AbdelMohaimen/Iqraa-By-100MillionDev",
   "author_email": "support@salla.sa",
   "features": [
     "mega-menu",
@@ -538,7 +538,7 @@
               "slides.description": "",
               "slides.without_overlay": true,
               "slides.url__type": "custom",
-              "slides.url": "https://readboox.com/ar/latest-products",
+              "slides.url": "/latest-products",
               "__hidden": ""
             },
             {
@@ -547,7 +547,7 @@
               "slides.description": "شاشة حبر إلكتروني مريحة للعين، شحن مجاني وتقسيط يصل إلى 4 أشهر.",
               "slides.without_overlay": false,
               "slides.url__type": "custom",
-              "slides.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342",
+              "slides.url": "/latest-products",
               "__hidden": ""
             }
           ],
@@ -748,7 +748,7 @@
               "slides.description": "",
               "slides.without_overlay": true,
               "slides.url__type": "custom",
-              "slides.url": "https://readboox.com/ar/latest-products",
+              "slides.url": "/latest-products",
               "__hidden": ""
             }
           ],
@@ -1026,49 +1026,49 @@
               "links.icon": "sicon-packed-box",
               "links.title": "وصل حديثاً",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/new-arrivals/c1136262562"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-fabric-swatch",
               "links.title": "شاشة كبيرة",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-barcode-scan",
               "links.title": "شاشة متوسطة",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-image-carousel",
               "links.title": "شاشة ملونة",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-inbox-full",
               "links.title": "حافظات وأغلفة",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-calendar-date",
               "links.title": "الأقلام والملحقات",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/اقلام-ستايلس-اجهزة-بووكس/c723067992"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-game-controller-alt",
               "links.title": "أجهزة التحكم",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/اجهزة-تحكم-ريموت-اجهزة-بووكس/c547979611"
+              "links.url": "/latest-products"
             },
             {
               "links.icon": "sicon-store2",
               "links.title": "تخفيضات",
               "links.url__type": "custom",
-              "links.url": "https://readboox.com/ar/offers"
+              "links.url": "/offers"
             }
           ],
           "fields": [
@@ -1869,8 +1869,8 @@
     {
       "key": "b89edc4a-ce0b-468f-8323-2da48147bb32",
       "title": {
-        "en": "Enhanced square images",
-        "ar": "صور مربعة (محسنة)"
+        "en": "Discovery paths gallery",
+        "ar": "مسارات الاكتشاف"
       },
       "icon": "sicon-image",
       "path": "home.enhanced-square-banners",
@@ -1887,7 +1887,36 @@
           "type": "static",
           "format": "description",
           "id": "banners-note",
-          "value": "<div style='background-color:#f5f5f5;border-radius:8px;padding:12px 16px;margin-bottom:16px;color:#333;font-size:14px;line-height:1.6;direction:inherit;text-align:inherit;'><strong style='color:#e53e3e;'>تنبيه:</strong> يتم اقتصاص الصور من الأطراف لتناسب مقاسات الشاشات، لذا يُرجى مراعاة الأجزاء المقتصّة طولاً وعرضاً عند التصميم لتظهر الصورة كاملة قدر الإمكان.</div>"
+          "value": "<div style='background-color:#F7F4EE;border-radius:12px;padding:12px 16px;margin-bottom:16px;color:#262333;font-size:14px;line-height:1.7;direction:inherit;text-align:inherit;'><strong style='color:#5A2F64;'>مسارات الاكتشاف:</strong> عرض مسطّح بلا كروت أو خلفيات: صورة الجهاز كاملة ثم عنوان ووصف ورابط. استخدم صورة مربعة 500×500 بخلفية فاتحة؛ الصورة تظهر كاملة دون قص. على الجوال تظهر المسارات كشريط قابل للتمرير.</div>"
+        },
+        {
+          "type": "string",
+          "icon": "sicon-format-text-alt",
+          "label": "عنوان القسم",
+          "multilanguage": true,
+          "id": "title",
+          "value": null,
+          "required": false,
+          "format": "text",
+          "description": "اتركه فارغًا لاستخدام العنوان الافتراضي من دليل الهوية",
+          "placeholder": "مسارات الاكتشاف في اقرأ",
+          "hide": false,
+          "minLength": 0,
+          "maxLength": 100
+        },
+        {
+          "type": "string",
+          "icon": "sicon-typography",
+          "label": "وصف القسم",
+          "multilanguage": true,
+          "id": "description",
+          "value": null,
+          "description": "اتركه فارغًا لاستخدام الوصف الافتراضي",
+          "format": "textarea",
+          "required": false,
+          "placeholder": "خمس طرق سريعة توصلك إلى ما تبحث عنه",
+          "minLength": 0,
+          "maxLength": 255
         },
         {
           "id": "banners",
@@ -1904,35 +1933,35 @@
               "banners.title": "وصل حديثاً",
               "banners.description": "أحدث أجهزة BOOX للقراءة والكتابة",
               "banners.url__type": "custom",
-              "banners.url": "https://readboox.com/ar/new-arrivals/c1136262562"
+              "banners.url": "/latest-products"
             },
             {
               "banners.image": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
-              "banners.title": "شاشة كبيرة",
-              "banners.description": "مساحة أوسع للكتب والملفات والملاحظات",
+              "banners.title": "سلسلة BOOX Go",
+              "banners.description": "قراءة خفيفة ومتنقلة في كل مكان",
               "banners.url__type": "custom",
-              "banners.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342"
+              "banners.url": "/search?q=BOOX%20Go"
             },
             {
               "banners.image": "https://cdn.salla.sa/WZNRy/070efc43-c38e-4091-bcbc-d362f9317535-500x500-ImgpICR0OMgGoLViB7rzIws9EStENQMa2Ukjlzaw.jpg",
-              "banners.title": "شاشة متوسطة",
-              "banners.description": "خفيفة تناسب القراءة اليومية والتنقل",
+              "banners.title": "سلسلة BOOX Note",
+              "banners.description": "مساحة أوسع للملاحظات والدراسة",
               "banners.url__type": "custom",
-              "banners.url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739"
+              "banners.url": "/search?q=BOOX%20Note"
             },
             {
               "banners.image": "https://cdn.salla.sa/WZNRy/fb4b6782-cde7-4a13-a8c0-a5e8601cfb61-500x500-Yvg5t7SQ7sifPdOZo8vTKBroLtFQtmHdxh3emqOR.jpg",
-              "banners.title": "شاشة ملونة",
-              "banners.description": "للكتب المصورة والملاحظات الملوّنة",
+              "banners.title": "الشاشات الملونة",
+              "banners.description": "وسم ذكي للكتب المصورة والملاحظات الملوّنة",
               "banners.url__type": "custom",
-              "banners.url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589"
+              "banners.url": "/search?q=شاشة%20ملونة%20BOOX"
             },
             {
               "banners.image": "https://cdn.salla.sa/WZNRy/929f2970-4d7a-479b-a4a6-1c974cc66195-500x500-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg",
-              "banners.title": "حافظات وملحقات",
-              "banners.description": "أقلام ورؤوس أقلام وأجهزة تحكم",
+              "banners.title": "الباقات والعروض",
+              "banners.description": "جهاز مع ملحقاته في باقة واحدة",
               "banners.url__type": "custom",
-              "banners.url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317"
+              "banners.url": "/offers"
             }
           ],
           "fields": [
@@ -2278,6 +2307,38 @@
           "searchable": true,
           "minLength": 1,
           "maxLength": 10
+        }
+      ]
+    },
+    {
+      "key": "c84e1f19-2b4a-4e3d-8f92-5b1a3d4e6c88",
+      "title": {
+        "en": "Iqraa Bundles",
+        "ar": "باقات اقرأ"
+      },
+      "icon": "sicon-gift",
+      "path": "home.bundles",
+      "is_default": false,
+      "fields": [
+        {
+          "type": "string",
+          "icon": "sicon-format-text-alt",
+          "label": "عنوان البلوك",
+          "multilanguage": true,
+          "id": "title",
+          "value": "الباقات",
+          "required": false,
+          "format": "text",
+          "maxLength": 60
+        },
+        {
+          "type": "string",
+          "icon": "sicon-link",
+          "label": "رابط عرض الكل",
+          "id": "display_all_url",
+          "value": "/latest-products",
+          "required": false,
+          "format": "text"
         }
       ]
     }

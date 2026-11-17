@@ -1,0 +1,102 @@
+/*
+  Iqraa business solutions — the "Business Solutions" section from the approved
+  design (`media/image6.png`). Markup: `app/components/home/BusinessSolutions.tsx`
+
+  Text and benefits on the start side, the section photo on the end side, and the
+  wide primary call-to-action bar underneath.
+*/
+.s-block--business-solutions {
+  @extend %salla-container;
+}
+
+.business-solutions {
+  @apply rounded-2xl bg-gray-50 px-5 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-14;
+
+  &__grid {
+    @apply flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12;
+  }
+
+  &__intro {
+    @apply flex-1;
+  }
+
+  &__head {
+    @apply mb-4;
+  }
+
+  &__eyebrow {
+    @apply mb-3 inline-block text-xs font-bold uppercase tracking-[0.18em] text-primary;
+  }
+
+  &__title {
+    @apply text-2xl font-bold leading-tight text-gray-900 sm:text-3xl;
+  }
+
+  &__desc {
+    @apply max-w-2xl text-sm leading-7 text-gray-600 sm:text-base;
+  }
+
+  &__media {
+    @apply overflow-hidden rounded-xl bg-gray-100 lg:w-[46%] lg:shrink-0;
+
+    img {
+      @apply block h-full w-full object-cover;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  &__features {
+    @apply mt-6 grid gap-4 sm:grid-cols-2;
+  }
+
+  /* The wide primary bar under the section. */
+  &__cta {
+    @apply mt-8 flex flex-col items-start gap-4 rounded-xl px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8;
+    background: linear-gradient(120deg, var(--iqraa-cover) 0%, var(--iqraa-primary-deep) 55%, var(--iqraa-primary) 100%);
+  }
+
+  &__cta-text {
+    @apply flex flex-col gap-1 text-white;
+  }
+
+  &__cta-label {
+    @apply text-base font-bold sm:text-lg;
+  }
+
+  &__cta-note {
+    @apply text-sm text-white/80;
+  }
+
+  &__cta-button {
+    @apply inline-flex h-11 shrink-0 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-primary transition-transform hover:scale-[1.03] hover:no-underline;
+
+    i {
+      @apply text-xs ltr:rotate-180;
+    }
+  }
+}
+
+/* One benefit: a lavender icon bubble beside its title and text. */
+.business-solution {
+  @apply flex items-start gap-3;
+
+  &__icon {
+    @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#E6DCFA] text-primary;
+
+    i {
+      @apply text-xl;
+    }
+  }
+
+  &__body {
+    @apply min-w-0;
+  }
+
+  &__title {
+    @apply text-sm font-bold text-gray-900;
+  }
+
+  &__text {
+    @apply mt-1 text-xs leading-6 text-gray-500 sm:text-sm;
+  }
+}

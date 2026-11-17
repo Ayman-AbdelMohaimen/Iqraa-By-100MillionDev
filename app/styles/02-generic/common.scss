@@ -629,3 +629,8 @@ main > .s-block:nth-of-type(n + 4)[style*='min-height'] {
     display: none #{!important};
   }
 }
+
+/* Iqraa Brand Guidelines v0.9 type scale. */
+.iqraa-display { font-size: var(--iqraa-type-display); line-height: 1.15; }
+.iqraa-section-title { font-size: var(--iqraa-type-section); line-height: 1.25; }
+.iqraa-support { font-size: var(--iqraa-type-support); }

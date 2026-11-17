@@ -23,6 +23,8 @@ interface ProductDetailsProps {
   /** Live barcode of the selected variant; defaults to `product.barcode`. */
   barcode?: string | null;
   showTags?: boolean;
+  /** Brand guideline: check compatible models before buying. */
+  onCheckCompatibility?: () => void;
 }
 
 /**
@@ -40,6 +42,7 @@ export function ProductDetails({
   sku = product.sku,
   barcode = product.barcode,
   showTags = true,
+  onCheckCompatibility,
 }: ProductDetailsProps) {
   const { t } = useTranslation();
   const hydrated = useHydrated();
@@ -52,29 +55,16 @@ export function ProductDetails({
     <>
       <HookSlot name={HookName.PRODUCT_DESCRIPTION_START} context={productHookContext} />
 
-      {product.brand?.name && (
-        <div className="product-brand mb-5 w-12">
-          <Link className="brand-logo" to={product.brand.url || '#'} title={product.brand.name}>
-            <Image
-              className="max-h-full"
-              objectFit="contain"
-              src={product.brand.logo}
-              title={product.brand.name}
-              alt={product.brand.name}
-              aspectRatio="1/1"
-            />
-          </Link>
-        </div>
-      )}
+      <div className="product-brand-pill mb-2.5">
+        <span>{product.brand?.name || 'BOOX'}</span>
+      </div>
 
       <div className="mb-2.5 flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-xl md:text-2xl leading-10 font-bold text-gray-800">{product.name}</h1>
-          {product.subtitle && (
-            <h2 className="product-entry__sub-title text-sm text-gray-500 leading-6 font-normal">
-              {product.subtitle}
-            </h2>
-          )}
+          <h1 className="iqraa-display font-bold text-iqraa-ink">{product.name}</h1>
+          <h2 className="product-entry__sub-title text-sm text-gray-500 leading-6 font-normal">
+            {product.subtitle || 'قارئ وكاتب إلكتروني ملون عالي الدقة'}
+          </h2>
         </div>
 
         {/* share + wishlist, pulled up beside the title on the end side.
@@ -98,6 +88,25 @@ export function ProductDetails({
       )}
 
       <ProductPrice product={product} />
+
+      <div className="pdp-stock-badge">
+        <span className="pdp-stock-dot" />
+        <span>{product.is_available !== false ? 'متوفر في المخزون' : 'غير متوفر حالياً'}</span>
+      </div>
+
+      {/* Brand Guidelines v0.9: surface compatibility before the buy action. */}
+      <a
+        href="#product-compatibility"
+        onClick={onCheckCompatibility}
+        className="pdp-compatibility-link mb-3 inline-flex w-fit items-center gap-1.5 text-sm font-bold text-iqraa-deep underline decoration-iqraa-lavender underline-offset-4 hover:text-iqraa-primary"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7" />
+          <circle cx="12" cy="17" r=".5" fill="currentColor" />
+        </svg>
+        تحقق من التوافق
+      </a>
 
       <ProductDescription product={product} />
 

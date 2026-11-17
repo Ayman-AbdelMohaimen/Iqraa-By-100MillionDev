@@ -109,16 +109,16 @@
     @apply py-3 rtl:pl-4 ltr:pr-4;
   }
 
-  /* solid, pill add-to-cart (engine renders it fill="outline") */
+  /* Outline add-to-cart (border only) */
   salla-add-product-button {
     .s-button-btn,
     .s-button-element {
-      @apply rounded-full border-primary bg-primary text-primary-reverse;
+      @apply rounded-xl border border-primary bg-white text-primary font-bold transition-all;
     }
 
     .s-button-btn:hover,
     .s-button-element:hover {
-      @apply border-primary-d bg-primary-d text-primary-reverse opacity-100;
+      @apply border-primary bg-primary text-white opacity-100;
     }
   }
 }

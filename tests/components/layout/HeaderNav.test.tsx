@@ -1,20 +1,8 @@
 import React from 'react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, fireEvent, cleanup, act } from '@testing-library/react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { HeaderNav } from '../../../app/components/layout/HeaderNav';
-import {
-  CrownIcon,
-  DashboardSquare01Icon,
-  DiscountTagIcon,
-  NoteIcon,
-} from '../../../app/components/icons';
-
-const query: { data: unknown[] } = { data: [] };
-
-vi.mock('@tanstack/react-query', () => ({
-  useQuery: () => query,
-}));
+import { IQRA_MENU } from '../../../app/lib/brandMenu';
 
 vi.mock('react-dom', async (importOriginal) => {
   const actual = await importOriginal<typeof import('react-dom')>();
@@ -36,10 +24,6 @@ vi.mock('@salla.sa/twilight-theme-engine/providers', () => ({
   }),
 }));
 
-vi.mock('@salla.sa/twilight-theme-engine/api/menu', () => ({
-  menu: { queries: { header: () => ({ queryKey: ['menus', 'header'] }) } },
-}));
-
 vi.mock('@salla.sa/twilight-theme-engine/common', () => ({
   Link: ({ to, children, className, onClick, target, rel }: Record<string, unknown>) => (
     <a
@@ -55,71 +39,45 @@ vi.mock('@salla.sa/twilight-theme-engine/common', () => ({
   Image: ({ src, alt }: Record<string, unknown>) => <img src={src as string} alt={alt as string} />,
 }));
 
-const items = [
-  { id: 1, title: 'Offers', url: '/offers' },
-  {
-    id: 2,
-    title: 'Home',
-    url: '/home',
-    children: [
-      { id: 21, title: 'Living room', url: '/living' },
-      { id: 22, title: 'Bedroom', url: '/bedroom' },
-    ],
-  },
-];
-
-beforeEach(() => {
-  query.data = [];
-  document.body.className = '';
-});
-
 afterEach(() => {
   cleanup();
   vi.useRealTimers();
 });
 
-describe('HeaderNav', () => {
+const roots = (container: HTMLElement) =>
+  Array.from(container.querySelectorAll('.site-nav-drawer__panel:first-child .site-nav-drawer__list > li'));
+
+describe('HeaderNav — final Iqraa IA', () => {
   it('renders nothing while closed', () => {
-    query.data = items;
     const { container } = render(<HeaderNav open={false} onClose={() => {}} />);
     expect(container.querySelector('.site-nav-drawer')).toBeNull();
     expect(container.firstChild).toBeNull();
   });
 
-  it('opens on the root Miller column, then drills into a parent', () => {
-    query.data = items;
-    const { container, getByText, queryByText } = render(<HeaderNav open onClose={() => {}} />);
-
-    expect(container.querySelector('.site-nav-drawer')).toBeTruthy();
-
-    // Root column only: the two top-level rows, one of them a parent trigger.
-    // Child rows are not mounted until their parent is opened.
-    expect(container.querySelectorAll('.site-nav-drawer__panel').length).toBe(1);
-    expect(container.querySelectorAll('.site-nav-drawer__link').length).toBe(2);
-    expect(container.querySelectorAll('.site-nav-drawer__link--parent').length).toBe(1);
-    expect(queryByText('Living room')).toBeNull();
-
-    // Open the "Home" parent → a second column with its children appears.
-    fireEvent.click(getByText('Home'));
-
-    expect(container.querySelectorAll('.site-nav-drawer__panel').length).toBe(2);
-    expect(container.querySelectorAll('.site-nav-drawer__link').length).toBe(4);
-    expect(container.querySelectorAll('.site-nav-drawer__link--parent').length).toBe(1);
-    expect(getByText('Living room')).toBeTruthy();
-    expect(getByText('Bedroom')).toBeTruthy();
-    expect(container.querySelector('.site-nav-drawer__browse-all')).toBeTruthy();
+  it('uses the approved tree, not a store menu: six roots, four with children', () => {
+    const { container } = render(<HeaderNav open onClose={() => {}} />);
+    expect(container.querySelectorAll('.site-nav-drawer__panel')).toHaveLength(1);
+    const items = roots(container);
+    expect(items.map((li) => li.textContent?.trim())).toEqual(IQRA_MENU.map((i) => i.title));
+    expect(container.querySelectorAll('.site-nav-drawer__link--parent')).toHaveLength(4);
   });
 
-  it('starts at the root column again when reopened after closing', () => {
+  it('drills into a section, then returns to the root column when reopened', () => {
     vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
-    query.data = items;
     const onClose = () => {};
     const { container, getByText, rerender } = render(<HeaderNav open onClose={onClose} />);
 
-    fireEvent.click(getByText('Home'));
-    expect(container.querySelectorAll('.site-nav-drawer__panel').length).toBe(2);
+    fireEvent.click(getByText('أجهزة الحبر الإلكتروني'));
+    expect(container.querySelectorAll('.site-nav-drawer__panel')).toHaveLength(2);
+    expect(container.querySelectorAll('.site-nav-drawer__link')).toHaveLength(
+      IQRA_MENU.length + (IQRA_MENU[0].children?.length ?? 0)
+    );
+    expect(getByText('أجهزة القراءة')).toBeTruthy();
+    expect(getByText('المقارنة بين الأجهزة')).toBeTruthy();
+    expect(container.querySelector('.site-nav-drawer__browse-all')?.textContent).toContain(
+      'أجهزة الحبر الإلكتروني'
+    );
 
-    // Close, and let the exit transition finish so the drawer leaves the tree.
     rerender(<HeaderNav open={false} onClose={onClose} />);
     act(() => {
       vi.advanceTimersByTime(400);
@@ -127,146 +85,42 @@ describe('HeaderNav', () => {
     expect(container.querySelector('.site-nav-drawer')).toBeNull();
 
     rerender(<HeaderNav open onClose={onClose} />);
-    expect(container.querySelectorAll('.site-nav-drawer__panel').length).toBe(1);
+    expect(container.querySelectorAll('.site-nav-drawer__panel')).toHaveLength(1);
     expect(container.querySelector('.site-nav-drawer__browse-all')).toBeNull();
   });
 
   it('locks body scroll while open', () => {
-    query.data = items;
     render(<HeaderNav open onClose={() => {}} />);
     expect(document.body.classList.contains('menu-opened')).toBe(true);
   });
 
-  it('names the logo link by the store name once', () => {
-    query.data = items;
+  it('names the logo link by the store name and uses the official wordmark', () => {
     const { container } = render(<HeaderNav open onClose={() => {}} />);
     const brand = container.querySelector('.site-nav-drawer__brand')!;
-    // The sr-only name is the link's name; the logo adds nothing (no "Store logo").
-    expect(brand.querySelector('img')?.getAttribute('alt')).toBe('');
+    const logo = brand.querySelector<HTMLImageElement>('.iqraa-brand-logo__image')!;
+    expect(brand.querySelector('.iqraa-brand-logo')?.getAttribute('aria-hidden')).toBe('true');
+    expect(logo.getAttribute('alt')).toBe('');
+    expect(logo.getAttribute('src')).toContain('/logo/iqraa-');
     expect(brand.querySelector('.sr-only')?.textContent).toBe('Store');
   });
 
-  // A root row with no image used to skip the `.site-nav-drawer__label`
-  // wrapper entirely, leaving its text flush against the row edge instead of
-  // lined up with an image row's text (image width + gap to its right).
-  it('reserves the image slot on an image-less root row, so its title lines up with the rows that have one', () => {
-    query.data = [
-      { id: 1, title: 'Offers', url: '/offers' }, // no image
-      { id: 2, title: 'Accessories', url: '/accessories', image: 'https://cdn.example.com/a.png' },
-    ];
+  it('does not reserve an image slot: the approved tree has no menu images', () => {
     const { container } = render(<HeaderNav open onClose={() => {}} />);
-
-    const rows = container.querySelectorAll('.site-nav-drawer__link');
-    expect(rows.length).toBe(2);
-
-    // Both rows wrap their title in the same label box...
-    const labels = container.querySelectorAll('.site-nav-drawer__label');
-    expect(labels.length).toBe(2);
-
-    // ...the image-less row gets the same-size empty placeholder instead of
-    // an <img>, not a shorter box.
-    const [offersLabel, accessoriesLabel] = Array.from(labels);
-    expect(offersLabel.querySelector('.site-nav-drawer__link-img-placeholder')).toBeTruthy();
-    expect(offersLabel.querySelector('.site-nav-drawer__link-img')).toBeNull();
-    expect(accessoriesLabel.querySelector('.site-nav-drawer__link-img')).toBeTruthy();
-    expect(accessoriesLabel.querySelector('.site-nav-drawer__link-img-placeholder')).toBeNull();
-  });
-
-  it('fills an image-less root row with a grey circle and the icon for its page', () => {
-    query.data = [
-      { id: 'offers', title: 'Offers', url: '/offers' },
-      { id: 'blog', title: 'Blog', url: '/blog' },
-      { id: 3, title: 'Brands', url: '/ar/brands' },
-      { id: 4, title: 'Dresses', url: '/dresses' },
-      { id: 5, title: 'Accessories', url: '/accessories', image: 'https://cdn.example.com/a.png' },
-    ];
-    const { container } = render(<HeaderNav open onClose={() => {}} />);
-
-    const placeholders = Array.from(
-      container.querySelectorAll('.site-nav-drawer__link-img-placeholder')
-    );
-    expect(placeholders.map((el) => el.getAttribute('data-kind'))).toEqual([
-      'offers',
-      'blog',
-      'brands',
-      'general',
-    ]);
-
-    // Each circle draws its own page's icon: compare the drawn paths with the icon's.
-    const paths = (markup: string) => {
-      const host = document.createElement('div');
-      host.innerHTML = markup;
-      return host.querySelector('svg')?.innerHTML;
-    };
-    const expected = [DiscountTagIcon, NoteIcon, CrownIcon, DashboardSquare01Icon].map((Icon) =>
-      paths(renderToStaticMarkup(<Icon />))
-    );
-    expect(new Set(expected).size).toBe(4);
-    expect(placeholders.map((el) => paths(el.innerHTML))).toEqual(expected);
-  });
-
-  // When *no* root item has an image, reserving a same-size empty spacer on
-  // every row is just wasted space -- nothing to line titles up against.
-  it('reserves no placeholder at all when no root item has an image', () => {
-    query.data = [
-      { id: 1, title: 'Offers', url: '/offers' },
-      { id: 2, title: 'Dresses', url: '/dresses' },
-    ];
-    const { container } = render(<HeaderNav open onClose={() => {}} />);
-
-    const rows = container.querySelectorAll('.site-nav-drawer__link');
-    expect(rows.length).toBe(2);
-    expect(container.querySelector('.site-nav-drawer__label')).toBeNull();
     expect(container.querySelector('.site-nav-drawer__link-img-placeholder')).toBeNull();
     expect(container.querySelector('.site-nav-drawer__link-img')).toBeNull();
+    expect(container.querySelector('.site-nav-drawer__label')).toBeNull();
   });
 
-  // A non-root column (drilled into a parent) never shows images at all --
-  // confirms the placeholder fix doesn't leak the label wrapper in there too.
-  it('does not wrap child-column titles in the image label at all', () => {
-    query.data = [
-      {
-        id: 2,
-        title: 'Home',
-        url: '/home',
-        children: [
-          { id: 21, title: 'Living room', url: '/living', image: 'https://cdn.example.com/b.png' },
-        ],
-      },
-    ];
-    const { container, getByText } = render(<HeaderNav open onClose={() => {}} />);
+  it('marks the open section as expanded and closes when a leaf is chosen', () => {
+    const onClose = vi.fn();
+    const { container, getByText } = render(<HeaderNav open onClose={onClose} />);
+    const trigger = container.querySelector<HTMLButtonElement>('.site-nav-drawer__link--parent')!;
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
 
-    fireEvent.click(getByText('Home'));
+    fireEvent.click(trigger);
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
 
-    const childRow = Array.from(container.querySelectorAll('.site-nav-drawer__link')).find((el) =>
-      el.textContent?.includes('Living room')
-    );
-    expect(childRow?.querySelector('.site-nav-drawer__label')).toBeNull();
-    expect(childRow?.querySelector('.site-nav-drawer__link-img-placeholder')).toBeNull();
-  });
-
-  it('opens the links the merchant set to a new tab in a new tab, as the desktop menu does', () => {
-    query.data = [
-      { id: 1, title: 'Blog', url: 'https://blog.example.com', target: '_blank' },
-      { id: 3, title: 'Offers', url: '/offers', target: '_self' },
-      {
-        id: 2,
-        title: 'Home',
-        url: '/home',
-        target: '_blank',
-        children: [{ id: 21, title: 'Living room', url: '/living' }],
-      },
-    ];
-    const { getByText } = render(<HeaderNav open onClose={() => {}} />);
-    const link = (text: string) => getByText(text).closest('a')!;
-
-    expect(link('Blog').target).toBe('_blank');
-    expect(link('Blog').rel).toBe('noopener noreferrer');
-    expect(link('Offers').hasAttribute('target')).toBe(false);
-
-    fireEvent.click(getByText('Home'));
-    expect(link('Living room').hasAttribute('target')).toBe(false);
-    // "Browse all Home" opens the parent's own page, so it takes the parent's target.
-    expect(getByText(/Browse all/).closest('a')!.target).toBe('_blank');
+    fireEvent.click(getByText('أجهزة القراءة'));
+    expect(onClose).toHaveBeenCalled();
   });
 });

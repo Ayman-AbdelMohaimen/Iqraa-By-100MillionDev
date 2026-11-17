@@ -898,6 +898,93 @@ body.topnav-is-dark .site-header--lite .site-header__bar {
      at the row's bottom edge. With the item centred in the row instead, the
      space under it belonged to neither item nor panel: moving down to the
      panel left the item, and the panel closed before the pointer reached it. */
+  /* Dedicated Navigation Row placed under Main Header Bar */
+  .site-header__nav-row {
+    @apply border-b border-gray-200/80 bg-white;
+    position: relative;
+    z-index: 20;
+
+    .site-header__nav-row-inner {
+      @apply flex items-center justify-center;
+    }
+
+    .main-menu {
+      @apply flex w-full items-center justify-center gap-x-2 xl:gap-x-5;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .s-menu-root-level {
+      display: flex !important;
+      align-items: center;
+      position: relative;
+      padding-block: 0.25rem;
+
+      > a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.625rem 0.75rem;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        color: #2b2538;
+        white-space: nowrap;
+        position: relative;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: var(--iqraa-primary);
+        }
+      }
+
+      /* Active & Hovered Indicator: purple underline with triangular pointer */
+      &:hover,
+      &:focus-within,
+      &.is-active {
+        > a {
+          color: var(--iqraa-primary);
+
+          /* Horizontal purple indicator bar */
+          &::before {
+            content: '';
+            position: absolute;
+            bottom: -0.25rem;
+            inset-inline: 0.25rem;
+            height: 3px;
+            background-color: var(--iqraa-primary);
+            border-radius: 3px 3px 0 0;
+            z-index: 31;
+          }
+        }
+      }
+
+      /* Hover bridge: keeps hover active while mouse moves down to sub-menu.
+         A mega root is `position: static` (below), so a bridge on the `<li>`
+         would stretch across the whole header row and cover the panel's first
+         row of links. It gets its own bridge on the `<a>` instead. */
+      &.s-menu-has-children:not(.s-menu-mega-menu)::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        inset-inline: 0;
+        height: 16px;
+        z-index: 55;
+      }
+
+      .menu-chevron-icon {
+        display: inline-block;
+        margin-inline-start: 4px;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        vertical-align: middle;
+      }
+
+      &:hover .menu-chevron-icon,
+      &:focus-within .menu-chevron-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
   .site-header--default .site-header__mainmenu {
     @apply flex min-w-0 items-stretch self-stretch;
 
@@ -1007,6 +1094,17 @@ body.topnav-is-dark .site-header--lite .site-header__bar {
        into "More", it flies out beside its row like any nested panel. */
     .s-menu-root-level.s-menu-mega-menu {
       position: static;
+
+      // Scoped to the anchor's own width (the anchor is positioned above), so
+      // the bridge closes the few pixels to the panel without covering it.
+      > a::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        inset-inline: 0;
+        height: 16px;
+        z-index: 55;
+      }
     }
 
     .s-menu-mega-menu > .s-menu-sub-menu {
@@ -1098,26 +1196,10 @@ body.topnav-is-dark .site-header--lite .site-header__bar {
       inset-inline: auto 0;
     }
 
-    /* caret — sallaicons chevron, flips on an open top-level item */
-    .s-menu-has-children > a::after {
-      font-family: 'sallaicons';
-      content: '\e970';
-      @apply ms-1 inline-block text-base leading-none opacity-50 transition-transform;
-    }
-
-    /* `\e970` points left, the way a nested panel flies out in Arabic; in LTR
-       it flies out to the right, so the caret does too. */
-    .s-menu-non-root-level.s-menu-has-children > a:where([dir='ltr'] *)::after {
-      transform: scaleX(-1);
-    }
-
-    .s-menu-root-level.s-menu-has-children > a::after {
-      content: '\e96e';
-    }
-
-    .s-menu-root-level.s-menu-has-children:hover > a::after {
-      @apply opacity-100;
-      transform: scaleY(-1);
+    /* Carets: Use theme inline SVG chevrons; disable legacy sallaicons glyphs */
+    .s-menu-has-children:not(.s-menu-mega-menu) > a::after {
+      content: none !important;
+      display: none !important;
     }
   }
 }

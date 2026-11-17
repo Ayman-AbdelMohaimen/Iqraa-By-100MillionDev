@@ -101,7 +101,7 @@ describe('Header', () => {
   it('renders the shell: logo, actions, search modal, cart, and the hook slots', () => {
     const { container, getAllByLabelText } = render(<Header />);
     expect(container.querySelector('header.site-header')).toBeTruthy();
-    expect(container.querySelector('.site-header__brand img')).toBeTruthy();
+    expect(container.querySelector('.site-header__brand .iqraa-brand-logo')).toBeTruthy();
     expect(container.querySelector('salla-user-menu')).toBeTruthy();
     expect(container.querySelector('salla-cart-summary')).toBeTruthy();
     expect(container.querySelector('salla-search')).toBeTruthy();
@@ -114,8 +114,12 @@ describe('Header', () => {
   it('names the logo link by the store name once', () => {
     const { container } = render(<Header />);
     const brand = container.querySelector('.site-header__brand')!;
-    // The sr-only name is the link's name; the logo adds nothing (no "Acme logo").
-    expect(brand.querySelector('img')?.getAttribute('alt')).toBe('');
+    // The official Iqraa wordmark is decorative (aria-hidden, alt=""), so the
+    // sr-only name is the link's only accessible name.
+    const logo = brand.querySelector<HTMLImageElement>('.iqraa-brand-logo__image')!;
+    expect(brand.querySelector('.iqraa-brand-logo')?.getAttribute('aria-hidden')).toBe('true');
+    expect(logo.getAttribute('alt')).toBe('');
+    expect(logo.getAttribute('src')).toContain('/logo/iqraa-');
     expect(brand.querySelector('.sr-only')?.textContent).toBe('Acme');
   });
 

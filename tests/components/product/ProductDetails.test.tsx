@@ -316,8 +316,10 @@ describe('ProductDetails remaining quantity', () => {
   });
 });
 
-describe('ProductDetails brand logo', () => {
-  it('contains the logo instead of cropping it with the Image default cover', async () => {
+describe('ProductDetails brand', () => {
+  // The logo <img> was deliberately replaced by a branded text pill, so the
+  // brand name is still surfaced without loading a separate image.
+  it('shows the brand name in a text pill instead of a logo image', async () => {
     const { container } = render(
       <ProductDetails
         product={makeProduct({
@@ -326,13 +328,14 @@ describe('ProductDetails brand logo', () => {
       />
     );
 
-    const logo = await waitFor(() => {
-      const img = container.querySelector<HTMLImageElement>('.brand-logo img');
-      expect(img).toBeTruthy();
-      return img!;
+    const pill = await waitFor(() => {
+      const element = container.querySelector('.product-brand-pill');
+      expect(element).toBeTruthy();
+      return element!;
     });
-    expect(logo.classList.contains('object-contain')).toBe(true);
-    expect(logo.classList.contains('object-cover')).toBe(false);
+    expect(pill.textContent).toBe('Brand');
+    expect(pill.querySelector('img')).toBeNull();
+    expect(container.querySelector('.brand-logo')).toBeNull();
   });
 });
 

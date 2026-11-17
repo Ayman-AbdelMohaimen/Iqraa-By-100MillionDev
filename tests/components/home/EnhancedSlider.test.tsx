@@ -92,7 +92,9 @@ describe('EnhancedSlider', () => {
     expect(slider?.classList.contains('in-container')).toBe(false);
   });
 
-  it('renders a CTA button when show_button is enabled and it has button text', () => {
+  // The Iqraa hero always renders a primary CTA. `show_button` no longer gates it,
+  // and a blank label falls back to a branded default instead of hiding the link.
+  it('renders the primary CTA with the slide button text and link', () => {
     const { container } = render(
       <EnhancedSlider
         data={{
@@ -102,17 +104,19 @@ describe('EnhancedSlider', () => {
         }}
       />
     );
-    const cta = container.querySelector('.home-slider__cta');
-    expect(cta?.textContent).toBe('Shop now');
+    const cta = container.querySelector('.iqraa-hero-btn-primary');
+    expect(cta?.textContent).toContain('Shop now');
     expect(cta?.getAttribute('href')).toBe('/offers');
   });
 
-  it('omits the CTA button when the slide has no button text', () => {
+  it('uses the default label when the slide has no button text', () => {
     const { container } = render(<EnhancedSlider data={{ slider_banner: mockSlides }} />);
-    expect(container.querySelector('.home-slider__cta')).toBeNull();
+    expect(container.querySelector('.iqraa-hero-btn-primary')?.textContent).toContain(
+      'تسوق جميع الأجهزة'
+    );
   });
 
-  it('omits the CTA button when show_button is off, even with button text', () => {
+  it('still renders the CTA when show_button is off', () => {
     const { container } = render(
       <EnhancedSlider
         data={{
@@ -122,7 +126,7 @@ describe('EnhancedSlider', () => {
         }}
       />
     );
-    expect(container.querySelector('.home-slider__cta')).toBeNull();
+    expect(container.querySelector('.iqraa-hero-btn-primary')?.textContent).toContain('Shop now');
   });
 
   it('renders the merchant button from button text alone, linked to its url', () => {
@@ -131,16 +135,18 @@ describe('EnhancedSlider', () => {
         data={{ slides: [{ ...mockSlides[0], btnname: 'Shop now', url: '/offers' }] }}
       />
     );
-    const cta = container.querySelector('.home-slider__cta');
-    expect(cta?.textContent).toBe('Shop now');
+    const cta = container.querySelector('.iqraa-hero-btn-primary');
+    expect(cta?.textContent).toContain('Shop now');
     expect(cta?.getAttribute('href')).toBe('/offers');
   });
 
-  it('omits the merchant button when its text is only spaces', () => {
+  it('falls back to the default label when the button text is only spaces', () => {
     const { container } = render(
       <EnhancedSlider data={{ slides: [{ ...mockSlides[0], btnname: '   ', url: '/offers' }] }} />
     );
-    expect(container.querySelector('.home-slider__cta')).toBeNull();
+    expect(container.querySelector('.iqraa-hero-btn-primary')?.textContent).toContain(
+      'تسوق جميع الأجهزة'
+    );
   });
 
   it('links the button to url over the legacy link', () => {
@@ -151,10 +157,10 @@ describe('EnhancedSlider', () => {
         }}
       />
     );
-    expect(container.querySelector('.home-slider__cta')?.getAttribute('href')).toBe('/new');
+    expect(container.querySelector('.iqraa-hero-btn-primary')?.getAttribute('href')).toBe('/new');
   });
 
-  it('falls back to the legacy link, then to #, when the slide has no url', () => {
+  it('falls back to the legacy link, then to the catalogue, when the slide has no url', () => {
     const { container } = render(
       <EnhancedSlider
         data={{
@@ -165,9 +171,10 @@ describe('EnhancedSlider', () => {
         }}
       />
     );
-    const ctas = container.querySelectorAll('salla-slider .home-slider__cta');
+    const ctas = container.querySelectorAll('salla-slider .iqraa-hero-btn-primary');
+    expect(ctas).toHaveLength(2);
     expect(ctas[0]?.getAttribute('href')).toBe('/old');
-    expect(ctas[1]?.getAttribute('href')).toBe('#');
+    expect(ctas[1]?.getAttribute('href')).toBe('/latest-products');
   });
 
   it('renders slides with overlay background', () => {
@@ -193,18 +200,21 @@ describe('EnhancedSlider', () => {
     expect(poster.getAttribute('src')).toBe(slide.getAttribute('src'));
   });
 
-  it('renders slide title with parallax attribute', () => {
+  // Swiper's data-swiper-parallax was dropped in the full-screen hero; the same
+  // content now lives in branded h1 / subtitle markup.
+  it('renders the slide title as the hero display heading', () => {
     const { container } = render(<EnhancedSlider data={{ slider_banner: mockSlides }} />);
-    const title = container.querySelector('h2');
-    expect(title?.getAttribute('data-swiper-parallax')).toBe('-500');
+    const title = container.querySelector('h1.iqraa-hero-title');
     expect(title?.textContent).toBe('Slide 1');
+    expect(title?.classList.contains('iqraa-display')).toBe(true);
+    expect(title?.hasAttribute('data-swiper-parallax')).toBe(false);
   });
 
-  it('renders slide description with parallax attribute', () => {
+  it('renders the slide description in the hero subtitle', () => {
     const { container } = render(<EnhancedSlider data={{ slider_banner: mockSlides }} />);
-    const desc = container.querySelector('.description');
-    expect(desc?.getAttribute('data-swiper-parallax')).toBe('-300');
+    const desc = container.querySelector('.iqraa-hero-subtitle');
     expect(desc?.textContent).toBe('Description 1');
+    expect(desc?.hasAttribute('data-swiper-parallax')).toBe(false);
   });
 
   it('returns null when no slides', () => {
@@ -228,7 +238,7 @@ describe('EnhancedSlider', () => {
       expect(img?.getAttribute('src')).toBe('slide1.jpg');
       expect(img?.getAttribute('fetchpriority')).toBe('high');
       expect(img?.getAttribute('loading')).toBe('eager');
-      expect(poster?.querySelector('h2')?.textContent).toBe('Slide 1');
+      expect(poster?.querySelector('h1')?.textContent).toBe('Slide 1');
     });
 
     it('renders no poster without priority (below-the-fold placement)', () => {
@@ -254,10 +264,10 @@ describe('EnhancedSlider', () => {
           }}
         />
       );
-      const cta = container.querySelector('.enhanced-slider__poster a.home-slider__cta');
+      const cta = container.querySelector('.enhanced-slider__poster a.iqraa-hero-btn-primary');
       expect(cta?.getAttribute('href')).toBe('/offers');
       expect(cta?.getAttribute('tabindex')).toBe('-1');
-      const slideCta = container.querySelector('salla-slider a.home-slider__cta');
+      const slideCta = container.querySelector('salla-slider a.iqraa-hero-btn-primary');
       expect(slideCta?.getAttribute('href')).toBe('/offers');
       expect(slideCta?.hasAttribute('tabindex')).toBe(false);
     });

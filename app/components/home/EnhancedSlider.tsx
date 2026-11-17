@@ -220,34 +220,85 @@ export function SlideVideo({ url, poster }: { url?: string; poster?: string }) {
 
 function SlideText({ slide, poster }: { slide: SliderBanner; poster?: boolean }) {
   return (
-    <div className="flex-center container py-16 sm:py-0 home-slider__content relative h-full">
-      <div className="w-4/6 text-center md:w-7/12 lg:w-5/12 text-white">
-        {slide.title && (
-          <h2
-            data-swiper-parallax="-500"
-            className="lg:text-title-size font-bold leading-tight mb-4 last:mb-0"
-          >
-            {slide.title}
-          </h2>
-        )}
-        {(slide.subtitle || slide.description) && (
-          <p data-swiper-parallax="-300" className="line-clamp-2 description">
-            {slide.subtitle || slide.description}
-          </p>
-        )}
-        {/* A button text shows the button; legacy `slider_banner` data can still switch it off. */}
-        {slide.btnname?.trim() && slide.show_button !== false && (
+    <div className="iqraa-hero-container container h-full relative z-10 flex items-center justify-between">
+      {/* Right Column: 4 Vertical Feature Pills (Desktop) */}
+      <div className="iqraa-hero-badges hidden lg:flex flex-col gap-3 shrink-0">
+        <div className="iqraa-hero-badge">
+          <span className="iqraa-hero-badge-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B5A93" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
+          <span className="iqraa-hero-badge-text">تقنيات تدعم العربية</span>
+        </div>
+        <div className="iqraa-hero-badge">
+          <span className="iqraa-hero-badge-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B5A93" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg>
+          </span>
+          <span className="iqraa-hero-badge-text">مناسبة للدراسة والعمل</span>
+        </div>
+        <div className="iqraa-hero-badge">
+          <span className="iqraa-hero-badge-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B5A93" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </span>
+          <span className="iqraa-hero-badge-text">أجهزة أصلية وضمان محلي</span>
+        </div>
+        <div className="iqraa-hero-badge">
+          <span className="iqraa-hero-badge-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B5A93" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </span>
+          <span className="iqraa-hero-badge-text">شحن سريع وآمن</span>
+        </div>
+      </div>
+
+      {/* Center Column: Main Headline + Subtitle + Dual CTAs */}
+      <div className="iqraa-hero-main text-right max-w-xl">
+        <h1 className="iqraa-hero-title iqraa-display font-bold text-iqraa-ink leading-tight mb-3">
+          {slide.title && slide.title.length > 3 ? (
+            slide.title
+          ) : (
+            <>
+              اقرأ
+              <span className="block text-iqraa-deep mt-1">حيث تبدأ المعرفة</span>
+            </>
+          )}
+        </h1>
+        <p className="iqraa-hero-subtitle text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-6">
+          {slide.description || slide.subtitle || 'اكتشف تقنيات القراءة والتعلم والإنتاجية، واختَر الجهاز الذي يناسب أسلوب حياتك.'}
+        </p>
+        <div className="iqraa-hero-actions flex flex-wrap items-center gap-3">
           <Link
-            to={slide.url || slide.link || '#'}
-            data-swiper-parallax="-100"
-            className="home-slider__cta"
-            // The poster is aria-hidden, so its copy stays out of the tab order. Both link
-            // adapters forward it; BaseLinkProps just doesn't declare it.
+            to={slide.url || slide.link || '/latest-products'}
+            className="iqraa-hero-btn-primary"
             {...(poster && { tabIndex: -1 })}
           >
-            {slide.btnname}
+            {slide.btnname?.trim() || 'تسوق جميع الأجهزة'} &larr;
           </Link>
-        )}
+          <a
+            href="#shop-by-need"
+            className="iqraa-hero-btn-outline"
+            {...(poster && { tabIndex: -1 })}
+          >
+            دليل اختيار الجهاز
+          </a>
+        </div>
+      </div>
+
+      {/* Left Column: Device Presentation & Vertical Keywords */}
+      <div className="iqraa-hero-visual hidden md:flex items-center gap-6">
+        <div className="iqraa-hero-device-wrapper">
+          <img
+            src="https://cdn.files.salla.network/other/1935517889/77ef714f-cec6-4030-b79e-1834d356604b-original.webp"
+            alt="BOOX Note Device"
+            className="iqraa-hero-device-img"
+            loading="eager"
+          />
+        </div>
+        <div className="iqraa-hero-vertical-words">
+          <span>اقرأ</span>
+          <span>اكتب</span>
+          <span>تعلّم</span>
+          <span>ركّز</span>
+          <span>أنجز</span>
+        </div>
       </div>
     </div>
   );

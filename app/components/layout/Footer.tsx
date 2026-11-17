@@ -11,8 +11,8 @@ import { useTranslation } from '@salla.sa/twilight-theme-engine/i18n';
 import { HookSlot, useIsClient } from '@salla.sa/twilight-theme-engine/hooks';
 import { Link, Image } from '@salla.sa/twilight-theme-engine/common';
 import { ImageModal } from '@salla.sa/twilight-theme-engine/modal';
-import { MadeWithSalla } from '@salla.sa/twilight-theme-engine/layout';
 import { menu } from '@salla.sa/twilight-theme-engine/api/menu';
+import { IqraaLogo } from './IqraaLogo';
 
 /** Salla's value-added-tax badge icon (70×70, CDN-resized) — a platform
  *  asset shared by every store, not specific to any one theme. */
@@ -207,15 +207,9 @@ function FooterLogo({ className }: { className: string }) {
     <Link
       to="/"
       className={`store-footer__logo inline-flex items-center m-0 transition-opacity hover:opacity-75 ${className}`}
+      aria-label={store?.name || 'منصة اقرأ'}
     >
-      <Image
-        src={store.logo}
-        alt={store.name || 'Store'}
-        width={150}
-        height={44}
-        objectFit="contain"
-        className="h-11 w-auto max-w-[180px]"
-      />
+      <IqraaLogo width={140} height={48} withTagline />
     </Link>
   );
 }
@@ -394,20 +388,7 @@ export function Footer({ inSheet = false }: FooterProps = {}) {
 
       <div className="store-footer__bottom container md:flex items-center justify-between gap-4 py-4 lg:py-7 text-center">
         <span className={`text-sm copyright-text ${isDark ? 'text-gray-400' : 'text-gray-700'}`}>
-          <HookSlot
-            name="copyright"
-            context={{ storeName: store.name }}
-            fallback={
-              <>
-                {t('blocks.footer.copyright', 'All rights reserved')}{' '}
-                <Link to="/" className="transition-opacity hover:opacity-75 hover:text-primary">
-                  {store.name}
-                </Link>{' '}
-                © {year}
-                <MadeWithSalla className="ms-2" />
-              </>
-            }
-          />
+          <span>جميع الحقوق محفوظة لشركة اقـرأ {year} تم التطوير و التصميم بواسطة <a href="https://100milliondev.com" target="_blank" rel="noopener noreferrer" className="font-semibold transition-opacity hover:opacity-80 hover:text-primary">100MillionDev.com</a></span>
         </span>
 
         <SallaPayments />

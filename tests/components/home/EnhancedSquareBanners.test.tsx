@@ -3,22 +3,19 @@ import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import { EnhancedSquareBanners } from '../../../app/components/home/EnhancedSquareBanners';
 
-// Mock the sub-path exports
 vi.mock('@salla.sa/twilight-theme-engine/common', () => ({
   Link: ({
     to,
     children,
     className,
     'aria-label': ariaLabel,
-    style,
   }: {
     to: string;
     children?: React.ReactNode;
     className?: string;
     'aria-label'?: string;
-    style?: React.CSSProperties;
   }) => (
-    <a href={to} className={className} aria-label={ariaLabel} style={style}>
+    <a href={to} className={className} aria-label={ariaLabel}>
       {children}
     </a>
   ),
@@ -28,160 +25,101 @@ vi.mock('@salla.sa/twilight-theme-engine/i18n', () => ({
   useTranslation: () => ({ t: (_k: string, fb?: string) => fb ?? _k }),
 }));
 
-describe('EnhancedSquareBanners', () => {
-  const mockBanners = [
-    { image: 'banner1.jpg', url: '/url1', title: 'Banner 1', description: 'Desc 1' },
-    { image: 'banner2.jpg', url: '/url2', title: 'Banner 2', description: 'Desc 2' },
-    { image: 'banner3.jpg', url: '/url3' },
-  ];
+const banners = [
+  { image: 'one.jpg', url: '/one', title: 'وصل حديثاً', description: 'أحدث الأجهزة' },
+  { image: 'two.jpg', url: '/two', title: 'BOOX Go', description: 'قراءة خفيفة' },
+  { image: 'three.jpg', url: '/three', title: 'BOOX Note', description: 'مساحة للملاحظات' },
+  { image: 'four.jpg', url: '/four', title: 'الشاشات الملونة', description: 'وسم ذكي' },
+  { image: 'five.jpg', url: '/offers', title: 'الباقات والعروض', description: 'باقة واحدة' },
+];
 
-  it('renders banner items', () => {
-    const { container } = render(<EnhancedSquareBanners data={{ banners: mockBanners }} />);
-    const banners = container.querySelectorAll('.banner-entry');
-    expect(banners.length).toBe(3);
-  });
+const paths = (container: HTMLElement) =>
+  Array.from(container.querySelectorAll<HTMLElement>('.iqraa-path'));
 
-  it('adds the overlay to a titled banner missing its description or url', () => {
-    const { container } = render(
-      <EnhancedSquareBanners
-        data={{
-          banners: [
-            { image: 'a.jpg', title: 'No url', description: 'Desc' },
-            { image: 'b.jpg', url: '/b', title: 'No description' },
-            { image: 'c.jpg', url: '/c' },
-          ],
-        }}
-      />
-    );
-    const [noUrl, noDescription, untitled] = Array.from(container.querySelectorAll('.banner-entry'));
-    expect(noUrl.className).toContain('has-overlay');
-    expect(noDescription.className).toContain('has-overlay');
-    expect(untitled.className).not.toContain('has-overlay');
-  });
-
-  it('removes the overlay from a banner with a title, description and url', () => {
-    const { container } = render(<EnhancedSquareBanners data={{ banners: mockBanners }} />);
-    const banner = container.querySelector('.banner-entry');
-    expect(banner?.className).not.toContain('has-overlay');
-  });
-
-  it('renders banner title', () => {
-    const { container } = render(<EnhancedSquareBanners data={{ banners: mockBanners }} />);
-    const title = container.querySelector('.banner__title');
-    expect(title?.textContent).toBe('Banner 1');
-  });
-
-  it('uses h-lg-banner class for 3 or fewer banners', () => {
-    const { container } = render(<EnhancedSquareBanners data={{ banners: mockBanners }} />);
-    const banner = container.querySelector('.banner-entry');
-    expect(banner?.className).toContain('h-lg-banner');
-  });
-
-  it('uses h-banner class for 4 banners', () => {
-    const fourBanners = [...mockBanners, { image: 'banner4.jpg', url: '/url4' }];
-    const { container } = render(<EnhancedSquareBanners data={{ banners: fourBanners }} />);
-    const banner = container.querySelector('.banner-entry');
-    expect(banner?.className).toContain('h-banner');
-  });
-
-  it('renders background image on link', () => {
-    const { container } = render(<EnhancedSquareBanners data={{ banners: mockBanners }} />);
-    const link = container.querySelector('.banner-entry');
-    expect(link?.style.backgroundImage).toContain('banner1.jpg');
-    expect(link?.className).toContain('bg-cover');
-    expect(link?.className).toContain('bg-center');
-  });
-
-  it('returns null when no banners', () => {
+describe('EnhancedSquareBanners — discovery paths', () => {
+  it('renders nothing when the merchant has not added any paths', () => {
     const { container } = render(<EnhancedSquareBanners data={{ banners: [] }} />);
     expect(container.firstChild).toBeNull();
   });
 
-  it('names an untitled banner by its description, or "Discover now" when it has no text', () => {
+  it('renders a flat numbered list, not the old card mosaic or photo grid', () => {
+    const { container } = render(<EnhancedSquareBanners data={{ banners }} />);
+    expect(container.querySelector('.enhanced-square-banners-mosaic')).toBeNull();
+    expect(container.querySelector('.banner-entry')).toBeNull();
+    expect(container.querySelectorAll('.iqraa-path__link')).toHaveLength(5);
+    expect(paths(container).map((el) => el.querySelector('.iqraa-path__number')?.textContent)).toEqual([
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+    ]);
+  });
+
+  it('uses the approved section heading and description from the editor, with brand fallbacks', () => {
+    const { container, getByText } = render(
+      <EnhancedSquareBanners
+        data={{ banners, title: 'مسارات الاكتشاف', description: 'خمس طرق سريعة' }}
+      />
+    );
+    expect(getByText('مسارات الاكتشاف').tagName).toBe('H2');
+    expect(container.querySelector('.iqraa-paths__desc')?.textContent).toBe('خمس طرق سريعة');
+
+    const fallback = render(<EnhancedSquareBanners data={{ banners }} />);
+    expect(fallback.container.querySelector('.iqraa-paths__title')?.textContent).toBe(
+      'مسارات الاكتشاف في اقرأ'
+    );
+    expect(fallback.container.querySelector('.iqraa-paths__desc')?.textContent).toContain(
+      'خمس طرق سريعة'
+    );
+  });
+
+  it('renders each path as a link with a contained image, caption and CTA', () => {
+    const { container } = render(<EnhancedSquareBanners data={{ banners }} />);
+    const first = paths(container)[0];
+    expect(first.querySelector('a')?.getAttribute('href')).toBe('/one');
+    const image = first.querySelector<HTMLImageElement>('.iqraa-path__image')!;
+    expect(image.getAttribute('src')).toBe('one.jpg');
+    expect(image.getAttribute('alt')).toBe('');
+    expect(image.getAttribute('loading')).toBe('lazy');
+    expect(first.querySelector('.iqraa-path__title')?.textContent).toBe('وصل حديثاً');
+    expect(first.querySelector('.iqraa-path__desc')?.textContent).toBe('أحدث الأجهزة');
+    expect(first.querySelector('.iqraa-path__cta')?.textContent).toContain('اكتشف الآن');
+  });
+
+  it('marks the first path as the lead and reflects the number of paths in the class', () => {
+    const { container } = render(<EnhancedSquareBanners data={{ banners }} />);
+    expect(container.querySelector('.iqraa-paths')?.classList.contains('iqraa-paths--5')).toBe(true);
+    expect(paths(container)[0].classList.contains('iqraa-path--lead')).toBe(true);
+    expect(paths(container)[1].classList.contains('iqraa-path--lead')).toBe(false);
+
+    const two = render(<EnhancedSquareBanners data={{ banners: banners.slice(0, 2) }} />);
+    expect(two.container.querySelector('.iqraa-paths')?.classList.contains('iqraa-paths--2')).toBe(
+      true
+    );
+  });
+
+  it('names an untitled path by its description, or by the CTA when it has no text', () => {
     const { container } = render(
       <EnhancedSquareBanners
         data={{
           banners: [
-            mockBanners[0],
-            { image: 'banner2.jpg', url: '/url2', description: 'Desc 2' },
-            mockBanners[2],
+            { image: 'a.jpg', url: '/a', description: 'وصف فقط' },
+            { image: 'b.jpg', url: '/b' },
           ],
         }}
       />
     );
-    const [titled, described, bare] = Array.from(container.querySelectorAll('.banner-entry'));
-    expect(titled.getAttribute('aria-label')).toBe('Banner 1');
-    // Its own text names it.
+    const [described, bare] = Array.from(container.querySelectorAll('.iqraa-path__link'));
     expect(described.hasAttribute('aria-label')).toBe(false);
-    expect(described.textContent).toContain('Desc 2');
-    expect(bare.getAttribute('aria-label')).toBe('Discover now');
+    expect(bare.getAttribute('aria-label')).toBe('اكتشف الآن');
   });
 
-  describe('with 5 banners', () => {
-    const fiveBanners = [
-      { image: 'tl.jpg', url: '/tl', title: 'TL', description: 'Top left' },
-      { image: 'center.jpg', url: '/center', title: 'Center', description: 'Center banner' },
-      { image: 'tr.jpg', url: '/tr', title: 'TR', description: 'Top right' },
-      { image: 'bl.jpg', url: '/bl', title: 'BL', description: 'Bottom left' },
-      { image: 'br.jpg', url: '/br', title: 'BR', description: 'Bottom right' },
-    ];
-
-    it('renders the hero mosaic instead of the plain grid', () => {
-      const { container } = render(<EnhancedSquareBanners data={{ banners: fiveBanners }} />);
-      expect(container.querySelector('.enhanced-square-banners-mosaic')).toBeTruthy();
-      expect(container.querySelectorAll('.enhanced-square-banner').length).toBe(5);
-      expect(container.querySelector('.banner-entry')).toBeNull();
-    });
-
-    it('renders title, description and a discover-now CTA per banner', () => {
-      const { container } = render(<EnhancedSquareBanners data={{ banners: fiveBanners }} />);
-      const first = container.querySelector('.enhanced-square-banner');
-      expect(first?.querySelector('.enhanced-square-banner__title')?.textContent).toBe('TL');
-      expect(first?.querySelector('.enhanced-square-banner__description')?.textContent).toBe(
-        'Top left'
-      );
-      expect(first?.querySelector('.enhanced-square-banner__cta')?.textContent).toBe(
-        'Discover now'
-      );
-    });
-
-    it('omits the CTA when a banner has no url', () => {
-      const noUrl = [...fiveBanners.slice(0, 4), { ...fiveBanners[4], url: undefined }];
-      const { container } = render(<EnhancedSquareBanners data={{ banners: noUrl }} />);
-      const last = container.querySelectorAll('.enhanced-square-banner')[4];
-      expect(last.querySelector('.enhanced-square-banner__cta')).toBeNull();
-    });
-
-    it('removes the overlay only from banners with a title, description and url', () => {
-      const banners = [
-        fiveBanners[0],
-        { ...fiveBanners[1], url: undefined },
-        { ...fiveBanners[2], title: undefined },
-        { ...fiveBanners[3], description: undefined },
-        { image: 'br.jpg' },
-      ];
-      const { container } = render(<EnhancedSquareBanners data={{ banners }} />);
-      const overlaid = Array.from(container.querySelectorAll('.enhanced-square-banner')).map(
-        (banner) => banner.classList.contains('enhanced-square-banner--overlay')
-      );
-      expect(overlaid).toEqual([false, true, true, true, true]);
-    });
-
-    it('names an untitled banner by its own text, or "Discover now" when it has none', () => {
-      const untitled = [
-        { ...fiveBanners[0], title: undefined },
-        { image: 'center.jpg' },
-        ...fiveBanners.slice(2),
-      ];
-      const { container } = render(<EnhancedSquareBanners data={{ banners: untitled }} />);
-      const [described, bare, titled] = Array.from(
-        container.querySelectorAll('.enhanced-square-banner')
-      );
-      // The description and the CTA name it.
-      expect(described.hasAttribute('aria-label')).toBe(false);
-      expect(described.textContent).toContain('Top left');
-      expect(bare.getAttribute('aria-label')).toBe('Discover now');
-      expect(titled.getAttribute('aria-label')).toBe('TR');
-    });
+  it('omits the image when the merchant has not uploaded one', () => {
+    const { container } = render(
+      <EnhancedSquareBanners data={{ banners: [{ url: '/a', title: 'بلا صورة' }] }} />
+    );
+    expect(container.querySelector('.iqraa-path__image')).toBeNull();
+    expect(container.querySelector('.iqraa-path__number')?.textContent).toBe('01');
   });
 });

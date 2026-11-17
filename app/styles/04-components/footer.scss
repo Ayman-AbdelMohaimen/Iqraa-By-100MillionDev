@@ -66,6 +66,12 @@
   .s-payments-list-item {
     @apply w-16;
   }
+
+  /* Official Iqraa wordmark. Sized here (not by the img width/height attrs)
+     so the mark keeps its aspect ratio at every breakpoint. */
+  &__logo .iqraa-brand-logo__image {
+    @apply h-11 w-auto max-w-[150px] object-contain;
+  }
 }
 
 /* Mobile: no page footer — its widgets live in the bottom bar's account sheet
@@ -94,5 +100,12 @@ body.footer-is-dark .store-footer {
 
   &__menu--inline .s-menu-footer-item {
     @apply border-white/10 text-white;
+  }
+
+  /* The fullcolor mark's deep-purple paths vanish on a dark footer. Turn them
+     white instead of downloading a second SVG — matches the official reverse
+     variant (all-white paths) with zero extra bytes. */
+  &__logo .iqraa-brand-logo__image {
+    filter: brightness(0) invert(1);
   }
 }

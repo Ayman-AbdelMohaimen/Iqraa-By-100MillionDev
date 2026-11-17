@@ -24,7 +24,8 @@ import {
   pruneUntitled,
   splitMenu,
 } from '../../lib/menuOverflow';
-import { IQRA_MENU } from '../../lib/brandMenu';
+import { IQRA_MENU, IQRA_MEGA_PANELS } from '../../lib/brandMenu';
+import { IqraaMegaPanel } from './IqraaMegaPanel';
 
 /** Layout effects measure before paint; on the server there is nothing to measure. */
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
@@ -68,28 +69,14 @@ const preventJump = (event: MouseEvent<HTMLAnchorElement>) => event.preventDefau
  * that don't fit move into a last "More" item. Off, it wraps onto more lines.
  */
 export function HeaderMainMenu() {
-  const { theme } = useTwilight();
-  const { t } = useTranslation();
-  const oneLine =
-    (theme?.settings as { enable_more_menu?: boolean } | undefined)?.enable_more_menu !== false;
-  const { data: rawItems = NO_ITEMS } = useQuery(menu.queries.header());
-  // This is the Iqraa brand theme, so the storefront keeps a complete main menu
-  // even when the store's own header menu is empty (the dev store has none):
-  // the brand tree in `lib/brandMenu` fills in. Once the merchant builds a menu,
-  // theirs replaces it everywhere — drawer included, see `useNavHasContent`.
-  const items = useMemo(() => {
-    const storeItems = pruneUntitled(rawItems);
-    return storeItems.length ? storeItems : IQRA_MENU;
-  }, [rawItems]);
-
-  if (!oneLine) {
-    return (
-      <ul className="main-menu">
-        <MenuItems items={items} root />
-      </ul>
-    );
-  }
-  return <OneLineMenu items={items} moreTitle={t('common.titles.more', 'More')} />;
+  // The approved tree is authoritative in this brand theme. Reading the store
+  // menu here let an older Salla menu replace the final four-section IA and
+  // silently drop the branded panels — the mega-menu bug being fixed here.
+  return (
+    <ul className="main-menu">
+      <MenuItems items={IQRA_MENU} root />
+    </ul>
+  );
 }
 
 /**
@@ -196,8 +183,10 @@ function MenuItems({ items, root }: { items: MenuItem[]; root: boolean }) {
 function MenuEntry({ item, root }: { item: MenuItem; root: boolean }) {
   const children = item.children ?? [];
   const hasChildren = children.length > 0;
+  const panelId = String(item.id);
+  const isIqraaMega = root && Boolean(IQRA_MEGA_PANELS[panelId]);
   const productIds = hasChildren ? menuProductIds(item) : [];
-  const isMega = productIds.length > 0;
+  const isMega = isIqraaMega || productIds.length > 0;
   const isMore = item.id === MORE_MENU_ID;
   const [opened, setOpened] = useState(false);
   const [placement, setPlacement] = useState<NestedPlacement>(END_PLACEMENT);
@@ -228,7 +217,7 @@ function MenuEntry({ item, root }: { item: MenuItem; root: boolean }) {
 
   const className = [
     root ? 's-menu-root-level' : 's-menu-non-root-level',
-    hasChildren && 's-menu-has-children',
+    (hasChildren || isIqraaMega) && 's-menu-has-children',
     isMega && 's-menu-mega-menu',
     placement.start && 's-menu-opens-start',
   ]
@@ -239,11 +228,12 @@ function MenuEntry({ item, root }: { item: MenuItem; root: boolean }) {
     <li
       className={className}
       {...(isMore ? { [MORE_MENU_ATTR]: 'true' } : {})}
-      {...(hasChildren ? { onMouseEnter: onOpen, onFocus: onOpen } : {})}
+      {...((hasChildren || isIqraaMega) ? { onMouseEnter: onOpen, onFocus: onOpen } : {})}
     >
       {isMore ? (
         <a href="#" role="button" aria-haspopup="true" onClick={preventJump}>
           <span>{item.title}</span>
+          <svg className="menu-chevron-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
         </a>
       ) : (
         <Link
@@ -253,9 +243,12 @@ function MenuEntry({ item, root }: { item: MenuItem; root: boolean }) {
             : {})}
         >
           <span>{item.title}</span>
+          {(hasChildren || isIqraaMega) && (
+            <svg className="menu-chevron-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+          )}
         </Link>
       )}
-      {hasChildren && (
+      {(hasChildren || isIqraaMega) && (
         <div
           ref={panelRef}
           // A mega panel whose links need columns stacks its products below
@@ -273,17 +266,23 @@ function MenuEntry({ item, root }: { item: MenuItem; root: boolean }) {
               }
             : {})}
         >
-          <ul
-            {...(columns > 1
-              ? {
-                  className: 's-menu-columns',
-                  style: { '--menu-columns': columns } as CSSProperties,
-                }
-              : {})}
-          >
-            <MenuItems items={children} root={false} />
-          </ul>
-          {isMega && opened && <MegaProducts ids={productIds} />}
+          {isIqraaMega ? (
+            <IqraaMegaPanel panelId={panelId} />
+          ) : (
+            <>
+              <ul
+                {...(columns > 1
+                  ? {
+                      className: 's-menu-columns',
+                      style: { '--menu-columns': columns } as CSSProperties,
+                    }
+                  : {})}
+              >
+                <MenuItems items={children} root={false} />
+              </ul>
+              {isMega && opened && <MegaProducts ids={productIds} />}
+            </>
+          )}
         </div>
       )}
     </li>

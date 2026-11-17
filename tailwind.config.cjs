@@ -25,7 +25,8 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '10px',
+      // Iqraa grid margins: 16px mobile, 32px+ desktop (see global.scss).
+      padding: 'var(--iqraa-container-pad)',
       screens: {
         '2xl': '1280px',
       },
@@ -47,6 +48,17 @@ module.exports = {
         danger: '#AE0A0A',
         primary: 'var(--color-primary)',
         'primary-dark': 'var(--color-primary-dark)',
+        // Iqraa Brand Guidelines v0.9 — use these instead of Tailwind's
+        // built-in purple ramp, which is off-brand.
+        iqraa: {
+          primary: 'var(--iqraa-primary)',
+          deep: 'var(--iqraa-primary-deep)',
+          lavender: 'var(--iqraa-lavender)',
+          ivory: 'var(--iqraa-ivory)',
+          ink: 'var(--iqraa-ink)',
+          white: 'var(--iqraa-white)',
+          cover: 'var(--iqraa-cover)',
+        },
       },
       spacing: {
         3.75: '15px',

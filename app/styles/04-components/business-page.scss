@@ -1,0 +1,323 @@
+/*
+  Iqraa Business Solutions (B2B) Dedicated Page Styling
+  Matches media_1794423677991_ca112a49.jpg
+*/
+
+.iqraa-business-page {
+  @apply bg-white text-gray-800 pb-16;
+
+  /* 1. Hero Section */
+  .business-hero {
+    @apply bg-gradient-to-b from-white to-iqraa-ivory py-12 lg:py-16 border-b border-iqraa-lavender;
+
+    &__container {
+      @extend %salla-container;
+      @apply flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-14;
+    }
+
+    &__content {
+      @apply flex-1 text-right;
+    }
+
+    &__eyebrow {
+      @apply inline-block text-xs font-bold uppercase tracking-wider text-iqraa-deep bg-iqraa-lavender px-3 py-1 rounded-full mb-3;
+    }
+
+    &__title {
+      @apply text-3xl sm:text-4xl lg:text-5xl font-black text-iqraa-ink leading-tight mb-4;
+    }
+
+    &__desc {
+      @apply text-base sm:text-lg text-gray-600 leading-relaxed mb-8 max-w-xl;
+    }
+
+    &__actions {
+      @apply flex flex-wrap items-center gap-4;
+    }
+
+    &__media {
+      @apply flex-1 w-full max-w-lg lg:max-w-none;
+
+      img {
+        @apply w-full h-auto rounded-2xl shadow-xl border border-gray-200/80 object-cover;
+        max-height: 380px;
+      }
+    }
+  }
+
+  /* Buttons */
+  .btn-primary-b2b {
+    @apply inline-flex items-center justify-center font-bold text-white bg-iqraa-primary hover:bg-iqraa-deep px-7 py-3 rounded-xl shadow-md transition-all duration-200 hover:shadow-lg active:scale-95;
+  }
+
+  .btn-outline-b2b {
+    @apply inline-flex items-center justify-center font-bold text-iqraa-primary bg-white border border-iqraa-primary hover:border-iqraa-deep hover:bg-iqraa-ivory px-7 py-3 rounded-xl transition-all duration-200 active:scale-95;
+  }
+
+  .btn-whatsapp-b2b {
+    @apply inline-flex items-center justify-center gap-2 font-bold text-white bg-[#25D366] hover:bg-[#20ba59] px-7 py-3 rounded-xl shadow-md transition-all duration-200 hover:shadow-lg active:scale-95;
+  }
+
+  /* 2. Value Proposition Strip */
+  .business-props {
+    @apply bg-white py-6 border-b border-gray-100;
+
+    &__container {
+      @extend %salla-container;
+      @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4;
+    }
+  }
+
+  .business-prop-card {
+    @apply flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 transition-colors hover:bg-iqraa-ivory hover:border-iqraa-lavender;
+
+    .business-prop-icon {
+      @apply w-11 h-11 rounded-full bg-iqraa-lavender text-iqraa-primary flex items-center justify-center shrink-0;
+    }
+
+    .business-prop-text {
+      @apply flex flex-col text-right;
+
+      strong {
+        @apply text-xs sm:text-sm font-bold text-gray-900 leading-tight;
+      }
+
+      span {
+        @apply text-[11px] text-gray-500 mt-0.5;
+      }
+    }
+  }
+
+  /* Common Section Header */
+  .business-section-header {
+    @apply mb-10 pt-14;
+
+    .business-section-title {
+      @apply text-2xl sm:text-3xl font-extrabold text-iqraa-ink mb-2;
+    }
+
+    .business-section-subtitle {
+      @apply text-sm sm:text-base text-gray-500 max-w-lg mx-auto;
+    }
+  }
+
+  /* 3. Sectors Grid */
+  .business-sectors {
+    @extend %salla-container;
+
+    &__grid {
+      @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5;
+    }
+  }
+
+  .sector-card {
+    @apply bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col text-right;
+
+    &:hover {
+      .sector-card__thumb img {
+        transform: scale(1.05);
+      }
+      .sector-card__title {
+        color: var(--iqraa-primary);
+      }
+    }
+
+    &__thumb {
+      @apply w-full h-36 overflow-hidden bg-gray-100 relative;
+
+      img {
+        @apply w-full h-full object-cover transition-transform duration-300;
+      }
+    }
+
+    &__body {
+      @apply p-4 flex flex-col flex-1;
+    }
+
+    &__title {
+      @apply font-bold text-gray-900 text-base mb-2 transition-colors;
+    }
+
+    &__desc {
+      @apply text-xs text-gray-600 leading-relaxed mb-4 flex-1 line-clamp-3;
+    }
+
+    &__link {
+      @apply text-xs font-bold text-iqraa-deep hover:text-iqraa-deep inline-flex items-center gap-1 mt-auto;
+    }
+  }
+
+  /* 4. Dual Section: Why + Usage */
+  .business-dual {
+    @apply mt-16 py-14 bg-gray-50/80 border-y border-gray-100;
+
+    &__container {
+      @extend %salla-container;
+      @apply grid grid-cols-1 lg:grid-cols-2 gap-10 items-start;
+    }
+
+    &__col {
+      @apply flex flex-col;
+    }
+
+    &__title {
+      @apply text-xl sm:text-2xl font-bold text-iqraa-ink mb-6 text-right;
+    }
+  }
+
+  .business-usage-box {
+    @apply bg-white rounded-2xl p-6 border border-gray-200 shadow-sm flex flex-col gap-6;
+
+    .business-usage-img {
+      @apply rounded-xl overflow-hidden bg-gray-100 max-h-56;
+
+      img {
+        @apply w-full h-full object-cover;
+      }
+    }
+
+    .business-checklist {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3 text-right text-xs sm:text-sm text-gray-700;
+
+      li {
+        @apply flex items-center gap-2;
+      }
+
+      .check-icon {
+        @apply w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0;
+      }
+    }
+  }
+
+  .business-why-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 text-right;
+
+    .why-card {
+      @apply bg-white p-4 rounded-xl border border-gray-200/80 shadow-sm flex gap-3.5 items-start hover:border-iqraa-lavender transition-colors;
+
+      .why-icon {
+        @apply w-10 h-10 rounded-lg bg-iqraa-ivory text-iqraa-deep flex items-center justify-center shrink-0 mt-0.5;
+      }
+
+      h4 {
+        @apply text-xs sm:text-sm font-bold text-gray-900 mb-1;
+      }
+
+      p {
+        @apply text-[11px] sm:text-xs text-gray-500 leading-relaxed;
+      }
+    }
+  }
+
+  /* 5. Showcase per sector */
+  .business-showcase {
+    @extend %salla-container;
+    @apply pt-10;
+  }
+
+  .business-tabs {
+    @apply flex items-center justify-center gap-2 flex-wrap mb-8;
+
+    .b2b-tab {
+      @apply px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer;
+
+      &.is-active {
+        @apply bg-iqraa-primary text-white shadow-md;
+      }
+    }
+  }
+
+  .business-devices-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+  }
+
+  .b2b-device-card {
+    @apply bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col text-right;
+
+    &__thumb {
+      @apply relative p-4 bg-gray-50 flex items-center justify-center h-48;
+
+      img {
+        @apply max-h-40 object-contain transition-transform duration-300 hover:scale-105;
+      }
+
+      .b2b-device-tag {
+        @apply absolute top-3 right-3 text-[10px] font-bold bg-iqraa-lavender text-iqraa-deep px-2 py-0.5 rounded;
+      }
+    }
+
+    &__info {
+      @apply p-4 flex flex-col flex-1;
+
+      h4 {
+        @apply font-bold text-gray-900 text-base mb-1;
+      }
+
+      p {
+        @apply text-xs text-gray-500 leading-relaxed mb-4 flex-1;
+      }
+
+      .b2b-device-btn {
+        @apply text-xs font-bold text-iqraa-deep hover:text-iqraa-deep inline-flex items-center gap-1 mt-auto;
+      }
+    }
+  }
+
+  /* 6. Quote Form */
+  .business-quote-section {
+    @apply mt-16 pt-10;
+  }
+
+  .business-quote-container {
+    @extend %salla-container;
+    @apply max-w-4xl bg-gradient-to-br from-white to-iqraa-ivory p-6 sm:p-10 rounded-3xl border border-iqraa-lavender shadow-xl;
+  }
+
+  .business-quote-header {
+    @apply mb-8;
+
+    .business-quote-title {
+      @apply text-2xl sm:text-3xl font-black text-iqraa-ink mb-2;
+    }
+
+    .business-quote-desc {
+      @apply text-sm text-gray-600;
+    }
+  }
+
+  .b2b-form-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 text-right;
+  }
+
+  .b2b-form-group {
+    @apply flex flex-col gap-1.5;
+
+    label {
+      @apply text-xs font-bold text-gray-700;
+    }
+
+    input, select, textarea {
+      @apply w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-xs sm:text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-iqraa-primary focus:border-transparent transition-all;
+    }
+  }
+
+  .b2b-form-actions {
+    @apply flex flex-wrap items-center justify-center gap-4 mt-8;
+  }
+
+  .b2b-success-box {
+    @apply text-center p-8 bg-emerald-50 border border-emerald-200 rounded-2xl;
+
+    .b2b-success-icon {
+      @apply w-12 h-12 rounded-full bg-emerald-500 text-white font-bold text-2xl flex items-center justify-center mx-auto mb-3;
+    }
+
+    h3 {
+      @apply text-lg font-bold text-emerald-900 mb-1;
+    }
+
+    p {
+      @apply text-xs sm:text-sm text-emerald-700 max-w-md mx-auto;
+    }
+  }
+}

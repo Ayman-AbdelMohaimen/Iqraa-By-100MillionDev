@@ -1,5 +1,8 @@
 export { Brands } from './Brands';
+export { Bundles } from './Bundles';
+export { BusinessSolutions } from './BusinessSolutions';
 export { CustomTestimonials } from './CustomTestimonials';
+export { DeviceShowcase } from './DeviceShowcase';
 export { EnhancedSlider } from './EnhancedSlider';
 export { FeaturedProducts, featuredProductsConfig } from './FeaturedProducts';
 export { FixedProducts } from './FixedProducts';
@@ -9,3 +12,4 @@ export { PhotosSlider } from './PhotosSlider';
 export { ProductsSlider } from './ProductsSlider';
 export { SliderProductsWithHeader } from './SliderProductsWithHeader';
 export { EnhancedSquareBanners } from './EnhancedSquareBanners';
+export { StoreFeatures } from './StoreFeatures';

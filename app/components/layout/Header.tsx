@@ -16,6 +16,7 @@ import { HeaderMainMenu } from './HeaderMainMenu';
 import { HeaderNav } from './HeaderNav';
 import { HeaderTopnav } from './HeaderTopnav';
 import { PageAdvertisements } from './PageAdvertisements';
+import { IqraaLogo } from './IqraaLogo';
 
 /** Opens the Salla search modal (the `<SallaSearch />` at the end of the header). */
 const openSearch = () => window.salla?.event?.dispatch('search::open');
@@ -27,11 +28,11 @@ const hasSocialLinks = (social?: object) =>
   Object.entries(social ?? {}).some(([key, value]) => Boolean(value) && key !== 'whatsapp');
 
 /** Search trigger — opens the Salla search modal via the `search::open` event. */
-function SearchButton({ label }: { label: string }) {
+function SearchButton({ label, className = '' }: { label: string; className?: string }) {
   return (
     <button
       type="button"
-      className="header-action site-header__search"
+      className={`header-action site-header__search ${className}`.trim()}
       aria-label={label}
       onClick={openSearch}
     >
@@ -252,10 +253,7 @@ export function Header({ navOpen: navOpenProp, onNavOpenChange }: HeaderProps = 
             </div>
 
             <a className="site-header__brand" href={store?.url || '/'}>
-              <Image
-                src={store?.logo}
-                alt=""
-                priority
+              <IqraaLogo
                 width={140}
                 height={48}
               />
@@ -264,14 +262,21 @@ export function Header({ navOpen: navOpenProp, onNavOpenChange }: HeaderProps = 
               <BrandName className="sr-only">{store?.name || 'Store'}</BrandName>
             </a>
 
-            {isDefaultLayout && (
-              <nav
-                className="site-header__mainmenu"
-                aria-label={t('blocks.header.main_menu', 'Menu')}
+            {/* Center Search Bar Container (Desktop) */}
+            <div className="site-header__search-bar hidden md:flex flex-1 max-w-xl mx-6">
+              <button
+                type="button"
+                onClick={openSearch}
+                className="w-full flex items-center justify-between px-5 py-2.5 rounded-full bg-iqraa-ivory hover:bg-iqraa-lavender text-gray-500 border border-iqraa-lavender transition-all text-sm group"
+                aria-label="ابحث عن جهاز أو مقال..."
               >
-                <HeaderMainMenu />
-              </nav>
-            )}
+                <div className="flex items-center gap-3 text-gray-400 group-hover:text-gray-600">
+                  <SearchIcon className="w-4 h-4 text-primary" aria-hidden="true" />
+                  <span className="text-sm font-normal">ابحث عن جهاز أو مقال...</span>
+                </div>
+                <i className="sicon-search text-gray-400 group-hover:text-primary transition-colors" />
+              </button>
+            </div>
 
             <div className="site-header__actions">
               <SallaUserMenu avatarOnly showHeader relativeDropdown className="header-action" />
@@ -281,9 +286,23 @@ export function Header({ navOpen: navOpenProp, onNavOpenChange }: HeaderProps = 
               <SallaCartSummary className="header-action">
                 <ShoppingBagIcon slot="icon" aria-hidden="true" />
               </SallaCartSummary>
-              <SearchButton label={searchLabel} />
+              <SearchButton label={searchLabel} className="md:hidden" />
             </div>
           </div>
+
+          {/* Row 2: Categories Navigation Row under Header */}
+          {isDefaultLayout && (
+            <div className="site-header__nav-row hidden lg:block">
+              <div className="container site-header__nav-row-inner">
+                <nav
+                  className="site-header__mainmenu"
+                  aria-label={t('blocks.header.main_menu', 'Menu')}
+                >
+                  <HeaderMainMenu />
+                </nav>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

@@ -10,36 +10,68 @@ $infinte-color: var(--infinte-color);
 $main-text-color: var(--main-text-color);
 
 /**
- * Iqraa brand tokens.
+ * Iqraa brand tokens — Brand Guidelines v0.9 (16 Nov 2026).
  *
- * The engine injects the merchant's colour and font settings as a `:root` rule
- * in the document head, so `:root:root` (a higher specificity) is used to keep
- * the approved Iqraa design in place regardless of the store's own palette.
- * Delete this block (or drop the doubled selector) to hand colour control back
- * to the merchant's theme settings.
+ * The engine injects the merchant's colour and font settings as an inline style
+ * on <html>, so `:root:root` (higher specificity) + `!important` keep the
+ * approved palette regardless of the store dashboard settings. Delete this
+ * block (or drop the doubled selector) to hand control back to the merchant.
  *
- * Palette sampled from the approved design references in `/media`:
- * primary #5A148C, light #8228BE, card/lavender #E6DCFA.
+ * Typeface note: Hasan Aya / 29LT Bukra are supplied by the brand team. Until
+ * their webfont files land, PingARLT (loaded in __root.tsx) stays as the
+ * fallback so the storefront keeps rendering.
  */
 :root:root {
-  /* `!important` is required: the engine writes the store's palette as an *inline*
-     style on <html>, and an inline declaration outranks any selector. Only the
-     brand tokens are forced; the rest of the store's tokens still apply. */
-  --font-main: 'PingARLT', 'Dubai', 'Segoe UI', Tahoma, sans-serif !important;
+  /* `!important` is required to beat the engine's inline palette declaration. */
+  --font-main: 'Hasan Aya', 'PingARLT', 'Dubai', 'Segoe UI', Tahoma, sans-serif !important;
+  --font-latin: '29LT Bukra', 'PingARLT', 'Segoe UI', Tahoma, sans-serif;
 
-  --color-primary: #5a148c !important;
-  --color-primary-dark: #460f6b !important;
-  --color-primary-light: #8228be !important;
-  --color-primary-reverse: #f4e9ff !important;
+  /* Core palette — exact hex values from the guidelines. */
+  --iqraa-primary: #8b5a93;
+  --iqraa-primary-deep: #5a2f64;
+  --iqraa-lavender: #d9c6df;
+  --iqraa-ivory: #f7f4ee;
+  --iqraa-ink: #262333;
+  --iqraa-white: #ffffff;
 
-  /* Inner surfaces: soft lavender cards, tinted section backgrounds. */
-  --iqraa-lavender: #e6dcfa;
-  --iqraa-lavender-soft: #f3edfd;
-  --iqraa-ink: #241533;
-  --iqraa-muted: #6b5b7a;
+  /* Symbol-only colours, kept independent from the UI palette by the guide. */
+  --iqraa-symbol-purple: #694680;
+  --iqraa-symbol-lavender: #b8a4c7;
+  --iqraa-cover: #3d2d48;
+
+  /* Engine-facing roles. Reverse is white: white-on-primary is 5.27:1 (AA). */
+  --color-primary: var(--iqraa-primary) !important;
+  --color-primary-dark: var(--iqraa-primary-deep) !important;
+  --color-primary-light: var(--iqraa-lavender) !important;
+  --color-primary-reverse: var(--iqraa-white) !important;
+  --main-text-color: var(--iqraa-ink);
+
+  /* Typography scale from the guide (web px): display 28–36, section 22–26,
+     body 16–18, supporting 14–16. */
+  --iqraa-type-display: clamp(1.75rem, 4vw, 2.25rem);
+  --iqraa-type-section: clamp(1.375rem, 2.5vw, 1.625rem);
+  --iqraa-type-body: 1rem;
+  --iqraa-type-support: 0.875rem;
+
+  /* Layout grid from the guide: 4 cols / 12px gap / 16px margin on mobile,
+     12 cols / 24px gap / 32px+ margin on desktop. */
+  --iqraa-container-pad: 16px;
+  --iqraa-grid-gap: 12px;
 
   /* Design cards are noticeably rounded; matches the live store's .75rem. */
   --s-radius: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  :root:root {
+    --iqraa-container-pad: 32px;
+    --iqraa-grid-gap: 24px;
+  }
+}
+
+/* English content uses the Latin typeface from the guide. */
+html[lang='en']:root {
+  --font-main: var(--font-latin) !important;
 }
 
 // Default CSS custom properties (can be overridden by consuming theme)

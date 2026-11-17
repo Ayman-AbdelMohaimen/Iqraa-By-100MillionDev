@@ -989,7 +989,7 @@
 */
 .s-products-list-wrapper.s-products-list-vertical-cards {
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1rem;
+  gap: var(--iqraa-grid-gap);
 
   @media (max-width: 767px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1225,92 +1225,103 @@
 }
 
 /*
-  Iqraa full-screen hero.
-  The homepage's first block (`enhanced-slider` in twilight.preview.json) is not
-  a full-bleed photo: merchant banners are wide landscape strips (the live store
-  ships a 1440×498 feature banner), which crop badly when blown up to a phone.
-  So the hero is a brand panel — the purple Iqraa gradient, the slide copy on the
-  start side, and the slide image in a floating card — and it fills the viewport.
+  Iqraa Hero & Reusable Slider.
+  Matches media_1794424220665_d9835b1e.jpg
+  Warm beige e-ink parchment tone, dual CTA buttons, vertical badges and device showcase.
 */
-.s-block--enhanced-slider:first-of-type {
+.s-block--enhanced-slider {
   @apply mt-0;
 
   .swiper-slide {
-    height: 100vh;
-    height: 100svh;
-    min-height: 36rem;
+    height: clamp(380px, 34vw, 470px);
+    min-height: 22rem;
     aspect-ratio: auto;
-    background:
-      radial-gradient(85% 75% at 88% 8%, rgb(150 70 210 / 0.55), transparent 68%),
-      linear-gradient(155deg, #33084c 0%, #5a148c 46%, #3b0a58 100%);
+    background: linear-gradient(135deg, var(--iqraa-white) 0%, var(--iqraa-ivory) 100%) !important;
+    border-bottom: 1px solid #EAE3D5;
+
+    @media (min-width: 1024px) {
+      height: clamp(420px, 32vw, 490px);
+      min-height: 25rem;
+    }
   }
 
-  /* The gradient replaces the photo's dark overlay. */
+  /* Remove any dark overlay from slide image */
+  .overlay-bg,
   .overlay-bg::after {
-    content: none;
+    background: transparent !important;
+    content: none !important;
   }
 
-  /* The slide's image wrapper (`bg-cover`) becomes a floating card. */
+  /* Disable legacy full-cover background image on the slide so the rich layout shines */
   .swiper-slide > div:first-child {
-    inset-inline: 6%;
-    top: auto;
-    bottom: 12%;
-    width: 88%;
-    aspect-ratio: 1440 / 498;
-    overflow: hidden;
-    border-radius: calc(var(--s-radius, 0.75rem) * 1.5);
-    background: #fff;
-    box-shadow: 0 30px 70px -30px rgb(0 0 0 / 0.6);
+    display: none !important;
+  }
 
-    img {
-      position: static;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+  /* Iqraa Hero Layout Styling */
+  .iqraa-hero-container {
+    @apply py-6 sm:py-8 lg:py-10;
+    // Keep the side list distinct from the hero caption: real space plus a hairline
+    // between the two columns (a rule, not a card surface).
+    gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  }
+
+  /*
+    The approved hero has plain feature text on the page, not four pill cards.
+    No fill, border, radius, shadow or hover motion — those turned the side list
+    into a stack of cards that blended into the headline beside it.
+  */
+  .iqraa-hero-badges {
+    padding-inline-end: clamp(1.5rem, 2.5vw, 2.5rem);
+    border-inline-end: 1px solid rgba(139, 90, 147, 0.22);
+  }
+
+  .iqraa-hero-badge {
+    @apply flex items-center justify-end gap-2 text-right;
+
+    .iqraa-hero-badge-icon {
+      @apply flex h-5 w-5 shrink-0 items-center justify-center text-iqraa-primary;
+    }
+
+    .iqraa-hero-badge-text {
+      @apply text-xs font-semibold leading-5 text-iqraa-ink;
     }
   }
 
-  .home-slider__content {
-    align-items: flex-start;
-    padding-top: 13vh;
-    padding-inline: 1.5rem;
+  .iqraa-hero-btn-primary {
+    @apply inline-flex items-center justify-center font-bold text-white bg-iqraa-primary hover:bg-iqraa-deep px-6 py-3 rounded-xl shadow-md transition-all hover:shadow-lg active:scale-95 text-sm sm:text-base;
+  }
 
-    > div {
-      width: 100%;
-      max-width: 32rem;
+  .iqraa-hero-btn-outline {
+    @apply inline-flex items-center justify-center font-bold text-iqraa-primary bg-white border border-iqraa-primary hover:border-iqraa-deep hover:bg-iqraa-ivory px-6 py-3 rounded-xl transition-all active:scale-95 text-sm sm:text-base;
+  }
+
+  .iqraa-hero-device-wrapper {
+    @apply relative max-w-sm lg:max-w-md;
+
+    .iqraa-hero-device-img {
+      @apply w-full h-auto max-h-[340px] lg:max-h-[380px] object-contain drop-shadow-2xl rounded-2xl;
     }
   }
 
-  @media (min-width: 1024px) {
-    .swiper-slide > div:first-child {
-      inset-inline: auto;
-      inset-inline-start: 7%;
-      top: 50%;
-      bottom: auto;
-      width: 46%;
-      translate: 0 -50%;
-    }
+  .iqraa-hero-vertical-words {
+    @apply flex flex-col gap-3 text-xs sm:text-sm font-bold text-gray-400 select-none;
 
-    .home-slider__content {
-      align-items: center;
-      padding-top: 0;
-      padding-inline-start: 54%;
-      padding-inline-end: 5%;
-
-      > div {
-        max-width: 34rem;
-        text-align: start;
-      }
+    span {
+      @apply transition-colors hover:text-iqraa-deep;
     }
   }
 
   /* Reserve the same height while the slider's skeleton shows, so nothing
      below jumps when the slides load. */
   .s-skeleton-slider-image {
-    height: 100vh !important;
-    height: 100svh !important;
-    min-height: 36rem;
+    height: clamp(340px, 75vw, 420px) !important;
+    min-height: 20rem !important;
     aspect-ratio: auto !important;
+
+    @media (min-width: 1024px) {
+      height: clamp(380px, 32vw, 460px) !important;
+      min-height: 24rem !important;
+    }
   }
 }
 
@@ -1417,9 +1428,9 @@ salla-reviews:not(:has(.s-reviews-swiper-slide)) {
 
   &__track {
     @apply flex gap-3 overflow-x-auto cursor-grab md:gap-4 lg:gap-6;
-    margin-inline: -10px; /* the container's padding */
-    padding-inline: 10px;
-    scroll-padding-inline: 10px;
+    margin-inline: calc(-1 * var(--iqraa-container-pad)); /* the container's padding */
+    padding-inline: var(--iqraa-container-pad);
+    scroll-padding-inline: var(--iqraa-container-pad);
     padding-block-end: 0.25rem;
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
@@ -1654,78 +1665,220 @@ salla-reviews:not(:has(.s-reviews-swiper-slide)) {
 }
 
 /*
-  Enhanced square banners — 5-photo hero mosaic: two stacked banners on each
-  side, one tall banner spanning both rows in the center. Only rendered when
-  there are exactly 5 banners (EnhancedSquareBanners.tsx); fewer banners keep
-  the plain `.banner-entry` grid above.
+  Discovery paths (Brand Guidelines v0.9) — replaces the cropped 21:8 photo
+  mosaic with a flat editorial list: square product shots with no card fill or
+  frame, captions in the brand type scale, one clear CTA per path. The approved
+  layout uses no card surfaces, so nothing here paints a background or border.
+  Markup: app/components/home/EnhancedSquareBanners.tsx.
 */
-.enhanced-square-banners-mosaic {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  grid-template-areas: 'tl center tr' 'bl center br';
-  @apply gap-3 sm:gap-6;
-  aspect-ratio: 21 / 8;
+.iqraa-paths {
+  color: var(--iqraa-ink);
+  padding-block: 2rem 0.5rem;
 
-  @media (max-width: 767px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-template-areas: 'tl' 'center' 'tr' 'bl' 'br';
-    aspect-ratio: auto;
-  }
-}
-
-.enhanced-square-banner {
-  @apply relative flex items-center justify-center overflow-hidden rounded text-center text-white transition-opacity hover:opacity-95;
-
-  &:nth-child(1) {
-    grid-area: tl;
+  @media (min-width: 640px) {
+    padding-block: 2.5rem 1rem;
   }
 
-  &:nth-child(2) {
-    grid-area: center;
-
-    .enhanced-square-banner__title {
-      @apply text-2xl sm:text-3xl;
-    }
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-bottom: 1.25rem;
   }
 
-  &:nth-child(3) {
-    grid-area: tr;
+  &__intro {
+    max-width: 34rem;
   }
 
-  &:nth-child(4) {
-    grid-area: bl;
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--iqraa-type-support);
+    font-weight: 700;
+    color: var(--iqraa-primary-deep);
   }
 
-  &:nth-child(5) {
-    grid-area: br;
-  }
-
-  @media (max-width: 767px) {
-    aspect-ratio: 3 / 2;
-  }
-
-  &--overlay::after {
-    content: '';
-    @apply absolute inset-0 bg-black/35;
-  }
-
-  &__content {
-    @apply relative z-1 flex flex-col items-center gap-2 px-4;
+  &__eyebrow-mark {
+    width: 1.75rem;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--iqraa-primary);
   }
 
   &__title {
-    @apply text-xl sm:text-2xl font-bold leading-tight;
+    margin-top: 0.375rem;
+    font-size: var(--iqraa-type-section);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--iqraa-ink);
   }
 
-  &__description {
-    @apply text-sm sm:text-base opacity-90;
+  &__desc {
+    max-width: 28rem;
+    font-size: var(--iqraa-type-support);
+    line-height: 1.7;
+    color: rgba(38, 35, 51, 0.72);
+  }
+
+  &__grid {
+    display: grid;
+    // The guide's desktop grid: 12 columns with a 24px gap (12px on mobile).
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--iqraa-grid-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.iqraa-path {
+  grid-column: span 4;
+  min-width: 0;
+
+  // A lead path plus a companion path on the first row, three below.
+  .iqraa-paths--1 & { grid-column: span 12; }
+  .iqraa-paths--2 & { grid-column: span 6; }
+  .iqraa-paths--3 & { grid-column: span 4; }
+  .iqraa-paths--4 & { grid-column: span 3; }
+  .iqraa-paths--5 & { grid-column: span 4; }
+  .iqraa-paths--5 &:nth-child(1) { grid-column: span 7; }
+  .iqraa-paths--5 &:nth-child(2) { grid-column: span 5; }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: var(--iqraa-ink);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+
+      .iqraa-path__title {
+        color: var(--iqraa-primary-deep);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--iqraa-primary-deep);
+      outline-offset: 4px;
+    }
+  }
+
+  &__stage {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+  }
+
+  &--lead &__stage {
+    aspect-ratio: 16 / 10;
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__number {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.75rem;
+    z-index: 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--iqraa-primary-deep);
+    opacity: 0.4;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block-start: 0.75rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--iqraa-ink);
+  }
+
+  &--lead &__title {
+    font-size: var(--iqraa-type-section);
+  }
+
+  &__desc {
+    display: block;
+    font-size: var(--iqraa-type-support);
+    line-height: 1.6;
+    color: rgba(38, 35, 51, 0.72);
   }
 
   &__cta {
-    @apply mt-3 inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-bold text-gray-900 shadow-lg transition-transform hover:scale-[1.03] hover:no-underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: var(--iqraa-type-support);
+    font-weight: 700;
+    color: var(--iqraa-primary-deep);
+
+    i {
+      font-size: 1rem;
+    }
   }
+
+  @media (max-width: 767px) {
+    // Mobile stays a compact, flat rail instead of five stacked blocks.
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+}
+
+.iqraa-paths__grid {
+  @media (max-width: 767px) {
+    display: flex;
+    gap: var(--iqraa-grid-gap);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--iqraa-container-pad);
+    margin-inline: calc(var(--iqraa-container-pad) * -1);
+    padding: 0 var(--iqraa-container-pad) 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+// Two paths per row on tablets; keep the nth-child overrides above in sync.
+@media (min-width: 768px) and (max-width: 1023px) {
+  .iqraa-paths .iqraa-path,
+  .iqraa-paths--5 .iqraa-path:nth-child(1),
+  .iqraa-paths--5 .iqraa-path:nth-child(2) {
+    grid-column: span 6;
+  }
+}
+
+// English (LTR) flips the guide's RTL arrow back.
+html[dir='ltr'] .iqraa-path__cta i {
+  transform: scaleX(-1);
 }
 /*
   Blog — the articles the merchant picked, as whole cards in the shared scroll

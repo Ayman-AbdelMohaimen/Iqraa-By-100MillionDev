@@ -1,0 +1,80 @@
+/*
+  Iqraa Product Enhanced Sections (PDP)
+  Matches reference design from media_1794431773693_b154f0d3.jpg
+*/
+
+.iqraa-pdp-sections {
+  @apply w-full clear-both;
+}
+
+.pdp-trust-strip {
+  @apply rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm;
+
+  .pdp-trust-item {
+    @apply transition-transform duration-200;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.pdp-tabs-nav {
+  @apply border-b border-gray-200 flex items-center gap-2;
+
+  .pdp-tab-btn {
+    @apply relative py-4 px-5 text-sm font-bold transition-all;
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
+}
+
+.pdp-highlights {
+  .pdp-highlight-card {
+    @apply flex flex-col items-center justify-center rounded-2xl border border-gray-200/80 bg-white p-6 text-center shadow-sm transition-all duration-300;
+
+    &:hover {
+      @apply shadow-md;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+.pdp-comparison-banner {
+  @apply transition-all duration-200;
+
+  &:hover {
+    @apply shadow-sm;
+  }
+}
+
+/* Product brand pill on PDP */
+.product-brand-pill {
+  @apply inline-flex items-center;
+
+  span {
+    @apply rounded-md bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700 tracking-wide;
+  }
+}
+
+/* In stock badge on PDP */
+.pdp-stock-badge {
+  @apply inline-flex items-center gap-2 text-sm font-bold text-emerald-600 my-2.5;
+
+  .pdp-stock-dot {
+    @apply h-2 w-2 rounded-full bg-emerald-500 inline-block;
+  }
+}
+
+/* Gallery main image background */
+.product-slider .swiper-slide {
+  background-color: #ffffff !important;
+}
+
+.product-gallery {
+  .s-slider-block {
+    background-color: #ffffff !important;
+  }
+}

@@ -1,0 +1,155 @@
+/*
+  Iqraa device showcase — the curated five-device row from the approved design
+  (`media/image1.png`). Markup: `app/components/home/DeviceShowcase.tsx`
+
+  Phones scroll the row sideways (one card + a peek of the next, so the row never
+  squashes five cards into 360px); from tablets up it becomes a five-column grid.
+*/
+.s-block--device-showcase {
+  @extend %salla-container;
+}
+
+.device-showcase {
+  &__head {
+    @apply mb-4 flex items-end justify-between gap-4 md:mb-6;
+  }
+
+  &__title {
+    @apply text-lg font-bold leading-tight text-gray-900 lg:text-2xl;
+  }
+
+  &__desc {
+    @apply mt-1 text-sm text-gray-500 line-clamp-2;
+  }
+
+  &__all {
+    @apply inline-flex shrink-0 items-center gap-2 text-sm font-bold text-primary hover:underline;
+
+    i {
+      @apply text-xs ltr:rotate-180;
+    }
+  }
+
+  /* Mobile: a snapping, horizontally scrolling row. */
+  &__grid {
+    @apply flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2;
+    margin-inline: -10px; /* the container's padding */
+    padding-inline: 10px;
+    scroll-padding-inline: 10px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    > * {
+      @apply shrink-0 snap-start;
+      flex-basis: 72%;
+    }
+
+    @media (min-width: 640px) {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      @apply gap-4 overflow-visible;
+
+      margin-inline: 0;
+      padding-inline: 0;
+
+      > * {
+        flex-basis: auto;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      @apply gap-5;
+    }
+  }
+}
+
+/*
+  One device card: pure white background, name, screen size, price, rating, outline CTA.
+  Matches media_1794428329572_a3eb8a73.jpg & media_1794428439285_03e3bf2a.jpg
+*/
+.device-card {
+  @apply flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm;
+  background-color: #ffffff !important;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      @apply shadow-md;
+      transform: translateY(-2px);
+    }
+  }
+
+  &__media {
+    @apply relative flex items-center justify-center overflow-hidden bg-white p-6;
+    background-color: #ffffff !important;
+    aspect-ratio: 1 / 1;
+
+    img {
+      @apply h-full w-full object-contain transition-transform duration-300;
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+    }
+  }
+
+  &__badge {
+    @apply absolute top-3 inline-flex items-center rounded-full bg-[#e11d48] px-2.5 py-0.5 text-[11px] font-bold text-white shadow-sm;
+    inset-inline-start: 0.75rem;
+  }
+
+  &__body {
+    @apply flex flex-1 flex-col items-center text-center gap-1.5 px-4 pb-5 pt-2;
+  }
+
+  &__name {
+    @apply text-sm font-bold leading-snug text-gray-900 line-clamp-2 lg:text-[0.95rem];
+
+    a:hover {
+      @apply text-primary;
+    }
+  }
+
+  &__spec {
+    @apply text-xs text-gray-500 line-clamp-1;
+  }
+
+  &__meta {
+    @apply mt-auto flex items-center justify-center gap-2 pt-2;
+  }
+
+  &__price {
+    @apply text-base font-extrabold text-[#7024c4] lg:text-lg;
+  }
+
+  &__old-price {
+    @apply text-xs text-gray-400;
+  }
+
+  &__rating {
+    @apply inline-flex items-center gap-1 text-xs text-gray-500;
+
+    i {
+      @apply text-amber-400;
+    }
+  }
+
+  &__rating-value {
+    @apply font-bold text-gray-800;
+  }
+
+  &__reviews {
+    @apply text-gray-400;
+  }
+
+  /* Outline Button: purple frame only, white background */
+  &__cta {
+    @apply mt-3 inline-flex h-10 w-full items-center justify-center rounded-xl border border-primary bg-white px-4 text-sm font-bold text-primary transition-all hover:bg-primary hover:text-white hover:no-underline shadow-sm active:scale-95;
+  }
+}

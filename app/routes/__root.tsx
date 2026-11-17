@@ -43,8 +43,19 @@ function RootComponent() {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Iqraa brand typeface. The engine may also inject the store's font; the
-            `--font-main` token in 01-settings/global.scss wins over it. */}
+        <meta name="theme-color" content="#8b5a93" />
+        <meta name="application-name" content="منصة اقرأ" />
+        <meta name="description" content="منصة اقرأ - المتجر المتخصص في أجهزة القراءة والكتابة الإلكترونية والحبر الإلكتروني BOOX، الملحقات، وحلول المؤسسات والتعليم في المملكة العربية السعودية." />
+        <meta property="og:site_name" content="منصة اقرأ" />
+        <meta property="og:type" content="website" />
+        {/* Brand typefaces (Hasan Aya / 29LT Bukra) are in --font-main. PingARLT
+            stays loaded as the fallback until the brand webfonts are supplied.
+            The engine may inject the store's font; --font-main wins over it. */}
+        {/* Official Iqraa favicon + PWA icons (Brand Guidelines v0.9). */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
         <link rel="preconnect" href="https://cdn.salla.network" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://cdn.salla.network/fonts/pingarlt.css?v=2.0.5" />
         {/* Home and product paint from inline critical CSS; `bootClient` adds the full sheet once

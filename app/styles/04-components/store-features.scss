@@ -1,0 +1,247 @@
+// Store Features - Iqraa Brand Component with Animated SVG Micro-interactions
+// Designed for compact, reusable display across Home, Product, and B2B pages.
+
+.store-features-container {
+  padding-block: 0.75rem;
+}
+
+.store-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+
+  @media (min-width: 640px) {
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+.store-feature-card {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.625rem;
+  background-color: var(--iqraa-ivory);
+  border: 1px solid rgba(90, 20, 140, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  min-height: 3.25rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+
+  &:hover {
+    background-color: var(--iqraa-ivory);
+    border-color: rgba(90, 20, 140, 0.22);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px -2px rgba(90, 20, 140, 0.08);
+  }
+
+  @media (min-width: 640px) {
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+    min-height: 3.5rem;
+  }
+}
+
+.store-feature-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.5rem;
+  background-color: rgba(90, 20, 140, 0.08);
+  color: var(--iqraa-primary);
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+
+  .store-feature-card:hover & {
+    background-color: rgba(90, 20, 140, 0.16);
+    transform: scale(1.05);
+  }
+}
+
+.store-feature-svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  overflow: visible;
+  transition: transform 0.3s ease;
+}
+
+/* =========================================
+   SVG Micro-Animations (Truck / Shield / Card / Headset)
+   ========================================= */
+
+// 1. Truck Animation (Free Shipping)
+.svg-truck {
+  .truck-wheel {
+    transform-origin: center;
+    transition: transform 0.4s ease;
+  }
+
+  .truck-line {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+}
+
+.store-feature-card:hover .svg-truck {
+  animation: truckBounce 0.4s ease-in-out infinite alternate;
+
+  .truck-wheel {
+    animation: wheelSpin 0.6s linear infinite;
+  }
+
+  .truck-line {
+    opacity: 0.9;
+    animation: speedLine 0.4s linear infinite;
+  }
+}
+
+@keyframes truckBounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-1.5px); }
+}
+
+@keyframes wheelSpin {
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes speedLine {
+  0% { transform: translateX(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(-4px); opacity: 0; }
+}
+
+// 2. Shield Animation (Official Warranty)
+.svg-shield {
+  .shield-check {
+    transition: stroke-dasharray 0.4s ease, stroke-dashoffset 0.4s ease;
+  }
+}
+
+.store-feature-card:hover .svg-shield {
+  animation: shieldPulse 0.5s ease-in-out;
+
+  .shield-check {
+    animation: checkPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+}
+
+@keyframes shieldPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes checkPop {
+  0% { transform: scale(0.85); transform-origin: center; }
+  60% { transform: scale(1.2); transform-origin: center; }
+  100% { transform: scale(1); transform-origin: center; }
+}
+
+// 3. Credit Card Animation (Secure Payment)
+.svg-card {
+  .card-lock {
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+}
+
+.store-feature-card:hover .svg-card {
+  animation: cardTilt 0.45s ease-in-out;
+
+  .card-lock {
+    animation: lockJiggle 0.4s ease-in-out;
+  }
+}
+
+@keyframes cardTilt {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(-4deg); }
+  70% { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes lockJiggle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+// 4. Headset Animation (Arabic Support)
+.svg-headset {
+  .soundwave {
+    opacity: 0.3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform-origin: center;
+  }
+}
+
+.store-feature-card:hover .svg-headset {
+  .headset-band {
+    animation: headsetNod 0.5s ease-in-out infinite alternate;
+  }
+
+  .soundwave-1 {
+    animation: soundWavePulse 0.6s ease-in-out infinite;
+  }
+
+  .soundwave-2 {
+    animation: soundWavePulse 0.6s ease-in-out 0.15s infinite;
+  }
+}
+
+@keyframes headsetNod {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+@keyframes soundWavePulse {
+  0% { opacity: 0.2; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); stroke: var(--iqraa-primary); }
+  100% { opacity: 0.2; transform: scale(1.2); }
+}
+
+.store-feature-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.store-feature-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1e1b26;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (min-width: 640px) {
+    font-size: 0.875rem;
+  }
+}
+
+.store-feature-desc {
+  font-size: 0.6875rem;
+  color: #6b6377;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.125rem;
+
+  @media (min-width: 640px) {
+    font-size: 0.75rem;
+  }
+}
+
+// Override Twilight Engine's default bulky .s-block--store-features classes
+.s-block--store-features {
+  padding-block: 0.5rem !important;
+  margin-block: 0.5rem !important;
+}

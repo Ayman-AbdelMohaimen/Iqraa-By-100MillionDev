@@ -3,7 +3,26 @@
   "settings": {
     "product_card_layout": "horizontal",
     "product_card_img_ratio": "square",
-    "header_layout": "default"
+    "header_layout": "default",
+    "enable_more_menu": true,
+    "header_show_store_info": false,
+    "header_store_info_home_only": true,
+    "header_is_sticky": false,
+    "topnav_is_dark": true,
+    "important_links": true,
+    "squar_photo_bg_image_size": "cover",
+    "vertical_fixed_products": false,
+    "is_more_button_enabled": false,
+    "footer_is_dark": true,
+    "product_show_breadcrumbs": true,
+    "product_index_show_breadcrumbs": true,
+    "enable_add_product_toast": true,
+    "notify_when_available_in_card": true,
+    "sticky_add_to_cart": true,
+    "product_options_collapsible": true,
+    "show_tags": true,
+    "slider_background_size": "contain",
+    "imageZoom": true
   },
   "layout": [
     {
@@ -24,11 +43,54 @@
             "title": "اقرأ بلا حدود",
             "description": "أجهزة BOOX للقراءة والكتابة بالحبر الإلكتروني — شحن مجاني وتقسيط يصل إلى 4 أشهر.",
             "btnname": "تسوّق الآن",
-            "url": "https://readboox.com/ar/latest-products",
+            "url": "/latest-products",
             "without_overlay": false,
             "__hidden": ""
+          },
+          {
+            "image": "",
+            "video": "",
+            "title": "",
+            "description": "",
+            "btnname": "",
+            "url": "",
+            "without_overlay": false
           }
         ]
+      }
+    },
+    {
+      "id": "b-feb35bc58b8d",
+      "path": "store-features",
+      "fields": {
+        "features": [
+          {
+            "icon": "sicon-truck",
+            "title": "شحن مجاني",
+            "description": "على الطلبات المؤهلة"
+          },
+          {
+            "icon": "sicon-shield-check",
+            "title": "ضمان رسمي",
+            "description": "من الوكيل"
+          },
+          {
+            "icon": "sicon-credit-card",
+            "title": "دفع آمن",
+            "description": "ومتعدد الوسائل"
+          },
+          {
+            "icon": "sicon-headset",
+            "title": "دعم فني عربي",
+            "description": "قبل وبعد الشراء"
+          }
+        ],
+        "position": 1,
+        "key": null,
+        "channel_visibility": {
+          "desktop": true,
+          "mobile": true
+        }
       }
     },
     {
@@ -46,7 +108,7 @@
             },
             "icon": "sicon-packed-box",
             "title": "وصل حديثاً",
-            "url": "https://readboox.com/ar/new-arrivals/c1136262562",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -55,7 +117,7 @@
             },
             "icon": "sicon-fabric-swatch",
             "title": "شاشة كبيرة",
-            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -64,7 +126,7 @@
             },
             "icon": "sicon-barcode-scan",
             "title": "شاشة متوسطة",
-            "url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -73,7 +135,7 @@
             },
             "icon": "sicon-image-carousel",
             "title": "شاشة ملونة",
-            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -82,7 +144,7 @@
             },
             "icon": "sicon-inbox-full",
             "title": "حافظات وأغلفة",
-            "url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -91,7 +153,7 @@
             },
             "icon": "sicon-calendar-date",
             "title": "الأقلام والملحقات",
-            "url": "https://readboox.com/ar/اقلام-ستايلس-اجهزة-بووكس/c723067992",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -100,7 +162,7 @@
             },
             "icon": "sicon-game-controller-alt",
             "title": "أجهزة التحكم",
-            "url": "https://readboox.com/ar/اجهزة-تحكم-ريموت-اجهزة-بووكس/c547979611",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -109,7 +171,7 @@
             },
             "icon": "sicon-store2",
             "title": "تخفيضات",
-            "url": "https://readboox.com/ar/offers",
+            "url": "/offers",
             "__hidden": ""
           }
         ],
@@ -121,44 +183,97 @@
           "mobile": true
         },
         "merge_with_top_component": false,
-        "title": "تسوّق حسب القسم"
+        "title": " "
       }
     },
     {
-      "id": "b-17d641ab72a0",
-      "path": "fixed-products",
+      "id": "b-7a41c9e2d6f3",
+      "path": "device-showcase",
       "fields": {
-        "products": {
-          "source": "latest"
-        },
-        "title": "وصل حديثاً",
-        "limit": 10,
-        "isVertical": true,
-        "display_all_url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/latest-products",
-        "position": 1,
-        "key": null,
+        "key": "9f2b6c41-84aa-4d1e-b7c3-0e5a92d84b17",
+        "title": "أجهزة اقرأ",
+        "description": "أجهزة BOOX الأصلية — اختر مقاس الشاشة المناسب لك.",
+        "display_all_url": "/latest-products",
+        "cta_label": "تسوّق الآن",
+        "devices": [
+          {
+            "ar": {
+              "name": "بوكس نوت ماكس | BOOX Note Max",
+              "spec": "شاشة 13.3\""
+            },
+            "name": "بوكس نوت ماكس | BOOX Note Max",
+            "image": "https://cdn.salla.sa/WZNRy/f424eb4c-632a-453c-bd23-deb14d2198c7-1000x1000-Z4pLbMoUXT0e0kYT5qNK6ggc6GyxOWgcTd6EtJEK.jpg",
+            "spec": "شاشة 13.3\"",
+            "price": 2433,
+            "rating": 4.9,
+            "reviews": 86,
+            "url": "/blog",
+            "__hidden": "",
+            "badge": ""
+          },
+          {
+            "ar": {
+              "name": "تاب الترا سي برو | BOOX Tab Ultra C Pro",
+              "spec": "شاشة 10.3\" ملونة"
+            },
+            "name": "تاب الترا سي برو | BOOX Tab Ultra C Pro",
+            "image": "https://cdn.salla.sa/WZNRy/bnT0UNz6FoIsg1CBUuIE3KCq8AS5B8DWjGTcSi9U.jpg",
+            "spec": "شاشة 10.3\" ملونة",
+            "price": 2086,
+            "rating": 4.7,
+            "reviews": 64,
+            "url": "/latest-products",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "name": "بووكس بالما 2 برو | BOOX Palma 2 Pro",
+              "spec": "شاشة 6.13\" ملونة"
+            },
+            "name": "بووكس بالما 2 برو | BOOX Palma 2 Pro",
+            "image": "https://cdn.salla.sa/WZNRy/41aefe65-2eb9-4a3b-a241-d448cdb97f92-1000x1000-jNAHmJD9Ki1X7cKOMPIyVA3N1gpd0Ifl2TiqeVog.jpg",
+            "spec": "شاشة 6.13\" ملونة",
+            "price": 1477.39,
+            "rating": 4.8,
+            "reviews": 53,
+            "url": "/latest-products",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "name": "بووكس قو 7 | BOOX GO 7",
+              "spec": "شاشة 7\""
+            },
+            "name": "بووكس قو 7 | BOOX GO 7",
+            "image": "https://cdn.salla.sa/WZNRy/bfe83fb2-ca01-4664-b692-0fa9bbea5153-1000x1000-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg",
+            "spec": "شاشة 7\"",
+            "price": 955.65,
+            "rating": 4.6,
+            "reviews": 42,
+            "url": "/latest-products",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "name": "بووكس نوت اير 6 سي | BOOX Note Air6 C",
+              "spec": "شاشة 10.3\" ملونة"
+            },
+            "name": "بووكس نوت اير 6 سي | BOOX Note Air6 C",
+            "image": "https://cdn.files.salla.network/other/1935517889/720a8394-d7f2-4fc4-a396-5aeb3690b256-original.webp",
+            "spec": "شاشة 10.3\" ملونة",
+            "price": 2260,
+            "rating": 4.8,
+            "reviews": 120,
+            "url": "/latest-products",
+            "__hidden": ""
+          }
+        ],
+        "versions": null,
         "channel_visibility": {
           "desktop": true,
           "mobile": true
-        }
-      }
-    },
-    {
-      "id": "b-1a9e77cc4801",
-      "path": "products-slider",
-      "fields": {
-        "products": {
-          "source": "latest"
         },
-        "title": "الأكثر مبيعاً",
-        "limit": 8,
-        "display_all_url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/latest-products",
-        "position": 1,
-        "key": null,
-        "channel_visibility": {
-          "desktop": true,
-          "mobile": true
-        }
+        "position": 2
       }
     },
     {
@@ -175,7 +290,7 @@
             "title": "وصل حديثاً",
             "description": "أحدث أجهزة BOOX للقراءة والكتابة",
             "image": "https://cdn.salla.sa/WZNRy/e4d7bb4e-afb7-4c8d-aa5d-d060362ea240-500x500-a6mvtpuxbJ0CRsSxPMNbFdXl45sCasJsJpRKo6SY.jpg",
-            "url": "https://readboox.com/ar/new-arrivals/c1136262562",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -186,7 +301,7 @@
             "title": "شاشة كبيرة",
             "description": "مساحة أوسع للكتب والملفات والملاحظات",
             "image": "https://cdn.salla.sa/WZNRy/e54bc2cc-b40d-4a05-a876-e870fba7f77b-500x500-wuB558KPDcwKNsrgIiyghqPODphELK1HUTA9nXB2.jpg",
-            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-كبيرة/c520732342",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -197,7 +312,7 @@
             "title": "شاشة متوسطة",
             "description": "خفيفة تناسب القراءة اليومية والتنقل",
             "image": "https://cdn.salla.sa/WZNRy/070efc43-c38e-4091-bcbc-d362f9317535-500x500-ImgpICR0OMgGoLViB7rzIws9EStENQMa2Ukjlzaw.jpg",
-            "url": "https://readboox.com/ar/قارئ-الكتروني-بووكس-شاشة-متوسطة/c50469739",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -208,7 +323,7 @@
             "title": "شاشة ملونة",
             "description": "للكتب المصورة والملاحظات الملوّنة",
             "image": "https://cdn.salla.sa/WZNRy/fb4b6782-cde7-4a13-a8c0-a5e8601cfb61-500x500-Yvg5t7SQ7sifPdOZo8vTKBroLtFQtmHdxh3emqOR.jpg",
-            "url": "https://readboox.com/ar/قراءة-وكتابة-الكترونية-بووكس-شاشة-ملونة/c1609926589",
+            "url": "/latest-products",
             "__hidden": ""
           },
           {
@@ -219,7 +334,7 @@
             "title": "حافظات وملحقات",
             "description": "أقلام ورؤوس أقلام وأجهزة تحكم",
             "image": "https://cdn.salla.sa/WZNRy/929f2970-4d7a-479b-a4a6-1c974cc66195-500x500-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg",
-            "url": "https://readboox.com/ar/جرابات-حافظات-اجهزة-بووكس/c783571317",
+            "url": "/latest-products",
             "__hidden": ""
           }
         ],
@@ -232,28 +347,62 @@
       }
     },
     {
-      "id": "b-feb35bc58b8d",
-      "path": "store-features",
+      "id": "b-2e58a4c71d09",
+      "path": "business-solutions",
       "fields": {
+        "key": "b73d5e08-1c96-4f2a-8d47-6a0e9b1c53fa",
+        "eyebrow": "Business Solutions",
+        "title": "حلول الأعمال من اقرأ",
+        "description": "أجهزة BOOX وحلول القراءة الرقمية للمؤسسات والمكتبات والجامعات — بضمان الوكيل وفاتورة ضريبية وتوصيل لكل مناطق المملكة.",
+        "image": "https://cdn.salla.sa/WZNRy/bnT0UNz6FoIsg1CBUuIE3KCq8AS5B8DWjGTcSi9U.jpg",
         "features": [
           {
-            "icon": "sicon-shipping-fast",
-            "title": "شحن مجاني",
-            "description": "شحن مجاني على أجهزة القراءة الإلكترونية"
+            "ar": {
+              "title": "تجهيز دفعات كاملة",
+              "text": "طلبات بالجملة للمدارس والجامعات والشركات مع جدول تسليم واضح."
+            },
+            "icon": "sicon-truck",
+            "title": "تجهيز دفعات كاملة",
+            "text": "طلبات بالجملة للمدارس والجامعات والشركات مع جدول تسليم واضح.",
+            "__hidden": ""
           },
           {
-            "icon": "sicon-store2",
-            "title": "مدفوعات آمنة",
-            "description": "مدفوعات آمنة وأقساط تصل إلى 4 أشهر"
+            "ar": {
+              "title": "فاتورة ضريبية",
+              "text": "فاتورة إلكترونية معتمدة تناسب إجراءات المشتريات في منشأتك."
+            },
+            "icon": "sicon-file",
+            "title": "فاتورة ضريبية",
+            "text": "فاتورة إلكترونية معتمدة تناسب إجراءات المشتريات في منشأتك.",
+            "__hidden": ""
           },
           {
-            "icon": "sicon-fire",
-            "title": "شحن سريع",
-            "description": "شحن سريع خلال 24 ساعة لبعض المناطق"
+            "ar": {
+              "title": "ضمان الوكيل",
+              "text": "أجهزة أصلية بضمان معتمد وخدمة صيانة داخل المملكة."
+            },
+            "icon": "sicon-shield-check",
+            "title": "ضمان الوكيل",
+            "text": "أجهزة أصلية بضمان معتمد وخدمة صيانة داخل المملكة.",
+            "__hidden": ""
+          },
+          {
+            "ar": {
+              "title": "دعم مخصص",
+              "text": "فريق يرشّح الجهاز المناسب لاستخدام منشأتك ويرافقك بعد الشراء."
+            },
+            "icon": "sicon-headset",
+            "title": "دعم مخصص",
+            "text": "فريق يرشّح الجهاز المناسب لاستخدام منشأتك ويرافقك بعد الشراء.",
+            "__hidden": ""
           }
         ],
+        "cta_title": "هل تبحث عن حل لمؤسستك؟",
+        "cta_note": "اطلب عرض سعر مخصص لفريقك خلال 24 ساعة.",
+        "cta_label": "تواصل مع فريق الأعمال",
+        "cta_url": "/latest-products",
         "position": 1,
-        "key": null,
+        "versions": null,
         "channel_visibility": {
           "desktop": true,
           "mobile": true
@@ -356,10 +505,10 @@
               "formatted": "2024-12-31 11:39:22",
               "timezone": "<object>"
             },
-            "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/-/a-1673272609",
+            "url": "/blog",
             "author": {
               "name": "Demo Store",
-              "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/author/830898378"
+              "url": "/blog"
             },
             "tags": [],
             "likes_count": 0,
@@ -391,10 +540,10 @@
               "formatted": "2024-12-31 11:31:17",
               "timezone": "<object>"
             },
-            "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/-/a-1141563175",
+            "url": "/blog",
             "author": {
               "name": "Demo Store",
-              "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/author/830898378"
+              "url": "/blog"
             },
             "tags": [],
             "likes_count": 0,
@@ -426,10 +575,10 @@
               "formatted": "2024-11-07 17:38:05",
               "timezone": "<object>"
             },
-            "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/-/a-160640909",
+            "url": "/blog",
             "author": {
               "name": "Demo Store",
-              "url": "https://demostore.salla.sa/ar/dev-vgckq3fssfhjewwi/blog/author/830898378"
+              "url": "/blog"
             },
             "tags": [],
             "likes_count": 0,

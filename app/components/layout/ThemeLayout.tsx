@@ -11,6 +11,7 @@ import { ImportantLinksSheet } from './ImportantLinksSheet';
 import { MobileAccountSheet } from './MobileAccountSheet';
 import { MobileBottomBar } from './MobileBottomBar';
 import { MobilePageTitleBar } from './MobilePageTitleBar';
+import { BusinessPage } from '../business/BusinessPage';
 import { fillComponentTranslations, type ComponentLang } from '../../lib/componentTranslations';
 
 /**
@@ -143,6 +144,17 @@ export function ThemeLayout({ children }: ThemeLayoutProps) {
   // Cart) or a link inside one of them navigates without touching their own
   // state, so they would otherwise stay open over the new page.
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isBusinessRoute = Boolean(
+    pathname?.includes('business') ||
+    (typeof window !== 'undefined' && window.location.pathname.includes('business'))
+  );
+
+  useEffect(() => {
+    if (isBusinessRoute && typeof document !== 'undefined') {
+      document.title = 'حلول المؤسسات والشركات | منصة اقرأ';
+    }
+  }, [isBusinessRoute]);
+
   useEffect(() => {
     setNavOpen(false);
     setAccountOpen(false);
@@ -173,7 +185,7 @@ export function ThemeLayout({ children }: ThemeLayoutProps) {
         <Header navOpen={navOpen} onNavOpenChange={setNavOpen} />
         <MobilePageTitleBar />
         <main id="main-content" className="flex-1">
-          {children}
+          {isBusinessRoute ? <BusinessPage /> : children}
         </main>
         {/* Not in a Suspense boundary, so the footer hydrates with the page. App snippets run
             once the SDK is ready, which can be before a boundary hydrates, and some insert next

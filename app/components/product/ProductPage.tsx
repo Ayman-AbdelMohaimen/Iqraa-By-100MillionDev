@@ -12,6 +12,7 @@ import { useTwilight } from '@salla.sa/twilight-theme-engine/providers';
 import type { ProductPageProps } from '@salla.sa/twilight-theme-engine/routes/product';
 import { ProductGallery } from './ProductGallery';
 import { ProductDetails } from './ProductDetails';
+import { ProductEnhancedSections } from './ProductEnhancedSections';
 import { AddToCartForm } from './AddToCartForm';
 import { BlockHookSlot } from '../common';
 import { ProductsSlider } from '../home';
@@ -71,6 +72,10 @@ export function ProductPage({ product: initialProduct, page }: ProductPageProps)
   const { product } = useProduct(initialProduct);
   const { commentsKey } = useComments();
   const blockScope = useMemo(() => ({ product_id: product.id }), [product.id]);
+  // The "check compatibility" link opens the accessories tab, then the anchor
+  // scrolls the shopper to the PDP detail sections.
+  const [pdpTab, setPdpTab] = useState('overview');
+  useEffect(() => setPdpTab('overview'), [product.id]);
 
   // The Twig storefront bootstraps `salla.config` with `user.can_comment`; the
   // React SDK init doesn't, so it's `null` and `<salla-comment-form>` (and the
@@ -128,6 +133,7 @@ export function ProductPage({ product: initialProduct, page }: ProductPageProps)
               sku={product.sku}
               barcode={product.barcode}
               showTags={theme.settings.show_tags}
+              onCheckCompatibility={() => setPdpTab('accessories')}
             />
             <HookSlot name="product:details.end" />
 
@@ -143,6 +149,12 @@ export function ProductPage({ product: initialProduct, page }: ProductPageProps)
         </div>
 
         <SallaOffer />
+        <ProductEnhancedSections
+          product={product}
+          reviewCount={product.rating?.count}
+          activeTab={pdpTab}
+          onSelectTab={setPdpTab}
+        />
       </div>
 
       {/* App-block hook `product.single.before_customer_reviews` — between the info and the reviews */}

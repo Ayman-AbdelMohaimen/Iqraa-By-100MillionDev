@@ -10,7 +10,10 @@ import { SliderSkeleton } from '@salla.sa/twilight-components-react';
 import { routeTree } from './routeTree.gen';
 import {
   Brands,
+  Bundles,
+  BusinessSolutions,
   CustomTestimonials,
+  DeviceShowcase,
   EnhancedSlider,
   FeaturedProducts,
   featuredProductsConfig,
@@ -21,6 +24,7 @@ import {
   ProductsSlider,
   SliderProductsWithHeader,
   EnhancedSquareBanners,
+  StoreFeatures,
 } from './components/home';
 import { Blog } from './components/home/Blog';
 import {
@@ -76,6 +80,14 @@ registerHomeComponents({
   'latest-products': LatestProducts,
   'slider-products-with-header': SliderProductsWithHeader,
   'enhanced-square-banners': EnhancedSquareBanners,
+  // Iqraa: the curated five-device row (design reference `media/image1.png`).
+  'device-showcase': DeviceShowcase,
+  // Iqraa: Bundles section (design reference `media/image1.png`).
+  bundles: Bundles,
+  // Iqraa: the "Business Solutions" section (design reference `media/image6.png`).
+  'business-solutions': BusinessSolutions,
+  // Iqraa: compact single-line store features (4 desktop, 2 mobile).
+  'store-features': StoreFeatures,
   blog: Blog,
 });
 
@@ -138,6 +150,13 @@ registerHomeComponentConfig({
     placeholder: <SliderSkeleton />,
     className: (data) =>
       `s-block s-block--photos-slider-with-text${data.in_container ? ' s-block--photos-slider-with-text-boxed' : ''}`,
+  },
+  // Iqraa device row: the card (image stage, name, spec, price, rating, CTA).
+  'device-showcase': {
+    height: 'clamp(390px, 34vw, 520px)',
+  },
+  'business-solutions': {
+    height: 'clamp(560px, 42vw, 720px)',
   },
 });
 

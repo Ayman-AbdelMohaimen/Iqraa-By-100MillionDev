@@ -388,7 +388,7 @@ function ThumbSlide({ image, index }: { image: ProductImage; index: number }) {
       <Image
         src={image.url}
         alt={image.alt || ''}
-        className="object-cover w-full h-full bg-gray-100 rounded overflow-hidden"
+        className="object-contain w-full h-full bg-white rounded-xl overflow-hidden border border-gray-200/80 p-1 transition-all hover:border-primary"
         title={image.alt}
         priority={index < 5}
         noWrapper

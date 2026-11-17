@@ -199,13 +199,13 @@
       }
     }
 
-    /* solid, pill-rounded add-to-cart, matched to the wishlist button height
-       (the engine renders it as fill="outline") */
-    .s-button-btn {
-      @apply h-9 bg-primary text-primary-reverse border-primary rounded-full;
+    /* Outline add-to-cart button with purple border only */
+    .s-button-btn,
+    .s-button-element {
+      @apply h-9 bg-white text-primary border border-primary rounded-xl font-bold transition-all;
 
       &:hover {
-        @apply bg-primary-d text-primary-reverse border-primary-d opacity-100;
+        @apply bg-primary text-white border-primary opacity-100;
       }
 
       svg {
@@ -627,8 +627,8 @@ salla-gifting {
    `04-components/slider.scss`.
    ========================================================================= */
 @media (max-width: 767px) {
-  /* the gallery bleeds past the `.container`'s 10px padding to the screen
-     edges; everything else keeps the container inset.
+  /* the gallery bleeds past the `.container`'s 16px mobile padding to the
+     screen edges; everything else keeps the container inset.
      `top: 0` cancels the `top-24` utility — it was inert while the column was
      `position: static`, but now bites because `.sidebar` is `relative` (for
      the overlay bar).
@@ -641,8 +641,8 @@ salla-gifting {
      so no route gate is needed here at all. */
   .sidebar {
     top: -1px;
-    margin-inline: -10px;
-    width: calc(100% + 20px);
+    margin-inline: calc(-1 * var(--iqraa-container-pad));
+    width: calc(100% + 2 * var(--iqraa-container-pad));
     max-width: none;
     padding-bottom: 0;
   }

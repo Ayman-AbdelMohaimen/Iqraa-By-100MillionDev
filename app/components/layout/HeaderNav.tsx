@@ -11,11 +11,9 @@ import {
 } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from '@salla.sa/twilight-theme-engine/i18n';
 import { useTwilight } from '@salla.sa/twilight-theme-engine/providers';
 import { Image, Link } from '@salla.sa/twilight-theme-engine/common';
-import { menu } from '@salla.sa/twilight-theme-engine/api/menu';
 import type { MenuItem } from '@salla.sa/twilight-theme-engine/types';
 import {
   ArrowLeftIcon,
@@ -33,9 +31,9 @@ import {
 import { useDialogFocus } from '../../hooks/useDialogFocus';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { afterNextPaint } from '../../lib/afterNextPaint';
+import { IqraaLogo } from './IqraaLogo';
 import { builtInMenuKind, type BuiltInMenuKind } from '../../lib/menuItemKind';
 import { openStoreSwitcher, type StoreSwitcher } from '../../lib/storeSwitchers';
-import { pruneUntitled } from '../../lib/menuOverflow';
 import { IQRA_MENU } from '../../lib/brandMenu';
 
 interface HeaderNavProps {
@@ -227,8 +225,7 @@ function NavHead({ canGoBack, onBack, onClose }: NavHeadProps) {
           <ArrowLeftIcon aria-hidden="true" />
         </button>
         <a className="site-nav-drawer__brand" href={store?.url || '/'} onClick={onClose}>
-          {/* Named by the store name below; an alt would repeat it (with an English "logo"). */}
-          <Image src={store?.logo} alt="" width={140} height={44} priority />
+          <IqraaLogo src={store?.logo} width={140} height={44} />
           <span className="sr-only">{storeName}</span>
         </a>
       </div>
@@ -431,12 +428,9 @@ function useDrawerTransition(open: boolean) {
  * `04-components/header.scss`.
  */
 export const HeaderNav = memo(function HeaderNav({ open, onClose }: HeaderNavProps) {
-  const { data: rawItems = [] } = useQuery(menu.queries.header());
-  // Empty store menu → the Iqraa brand tree, same as the desktop mega menu.
-  const items = useMemo(() => {
-    const storeItems = pruneUntitled(rawItems);
-    return storeItems.length ? storeItems : IQRA_MENU;
-  }, [rawItems]);
+  // Same approved tree as the desktop mega menu; an older store menu cannot
+  // replace it in the drawer either.
+  const items = IQRA_MENU;
 
   const { rootRef, mounted, entered, itemsIn } = useDrawerTransition(open);
 
