@@ -112,10 +112,37 @@ describe('HeaderMainMenu — final Iqraa IA', () => {
     expect(bundles.textContent).toContain('منتجات مفتوحة الصندوق');
   });
 
-  it('shows verified featured devices only in the devices panel', () => {
+  it('gives every panel with verified photos full image columns in one row', () => {
     const { container } = render(<HeaderMainMenu />);
-    const devices = panelOf(container, 'أجهزة الحبر الإلكتروني')!;
-    expect(devices.querySelectorAll('.iqraa-mega-device-card')).toHaveLength(2);
-    expect(panelOf(container, 'الباقات والعروض')?.querySelector('.iqraa-mega-featured-strip')).toBeNull();
+
+    for (const [title, linkColumns, expectedTracks] of [
+      ['أجهزة الحبر الإلكتروني', 3, 5],
+      ['ملحقات الحبر الإلكتروني', 2, 4],
+      ['الباقات والعروض', 2, 4],
+    ] as const) {
+      const panel = panelOf(container, title)!;
+      const grid = panel.querySelector('.iqraa-mega-columns-grid')!;
+      expect(panel.querySelectorAll('.iqraa-mega-product-column')).toHaveLength(
+        expectedTracks - linkColumns
+      );
+      // One grid track per real column: no tiny wrapped second row.
+      expect(grid.getAttribute('style')).toContain(`--iqraa-mega-columns: ${expectedTracks}`);
+      // Every featured photo is a reachable, real store image with alt text.
+      for (const img of panel.querySelectorAll<HTMLImageElement>('.iqraa-mega-product-media img')) {
+        expect(img.getAttribute('src')).toMatch(/^https:\/\/cdn\.(salla\.sa|files\.salla\.network)\//);
+        expect(img.getAttribute('alt')?.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('leaves panels without verified imagery clean instead of showing broken photos', () => {
+    const { container } = render(<HeaderMainMenu />);
+    const focus = panelOf(container, 'أدوات التركيز والإنتاجية')!;
+    expect(focus.querySelector('.iqraa-mega-featured-header')).toBeNull();
+    expect(focus.querySelectorAll('.iqraa-mega-product-column')).toHaveLength(0);
+    expect(focus.querySelector('.iqraa-mega-columns-grid')?.getAttribute('style')).toContain(
+      '--iqraa-mega-columns: 2'
+    );
+    expect(focus.querySelector('img')).toBeNull();
   });
 });

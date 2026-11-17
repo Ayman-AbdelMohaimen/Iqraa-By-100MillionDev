@@ -70,8 +70,16 @@ export interface MegaColumn {
 
 export interface MegaPanel {
   columns: MegaColumn[];
-  /** Show the featured-device strip under the columns. */
-  featured?: boolean;
+  /**
+   * Optional image-led columns pinned to the end of the panel. Each panel brings
+   * its own verified imagery; panels without a verified photo simply omit it
+   * rather than showing a broken thumbnail.
+   */
+  featured?: {
+    heading: string;
+    moreUrl: string;
+    items: FeaturedPreview[];
+  };
 }
 
 const seriesChips = [
@@ -81,10 +89,89 @@ const seriesChips = [
   { name: 'Palma', url: url.seriesPalma },
 ];
 
+export interface FeaturedPreview {
+  name: string;
+  spec: string;
+  price: string;
+  image: string;
+  url: string;
+  badge?: string;
+}
+
+/** Only devices with a verified, reachable product image are listed here. */
+export const FEATURED_DEVICES: FeaturedPreview[] = [
+  {
+    name: 'BOOX Note Air6 C',
+    spec: 'شاشة 10.3" ملونة (Kaleido 3)',
+    price: '2,599 ر.س',
+    image:
+      'https://cdn.files.salla.network/other/1935517889/720a8394-d7f2-4fc4-a396-5aeb3690b256-original.webp',
+    url: url.devices,
+    badge: 'جديد',
+  },
+  {
+    name: 'BOOX Go 7',
+    spec: 'شاشة 7" خفيفة ومريحة',
+    price: '999 ر.س',
+    image:
+      'https://cdn.salla.sa/WZNRy/bfe83fb2-ca01-4664-b692-0fa9bbea5153-1000x1000-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg',
+    url: url.devices,
+    badge: 'مختارة للقراءة',
+  },
+];
+
+/**
+ * Accessory photos already used on the PDP's compatible-accessories tab, all
+ * re-checked reachable. Named for the product each photo depicts there — no
+ * guessed URLs, so the panel can never show a broken thumbnail.
+ */
+const FEATURED_ACCESSORIES: FeaturedPreview[] = [
+  {
+    name: 'حافظة ذكية مغناطيسية',
+    spec: 'حافظة وأغطية بووكس',
+    price: '189 ر.س',
+    image:
+      'https://cdn.salla.sa/WZNRy/41aefe65-2eb9-4a3b-a241-d448cdb97f92-1000x1000-jNAHmJD9Ki1X7cKOMPIyVA3N1gpd0Ifl2TiqeVog.jpg',
+    url: url.casesCovers,
+    badge: 'الأكثر طلباً',
+  },
+  {
+    name: 'لوحة مفاتيح بلوتوث',
+    spec: 'كيبورد خفيف مع تاتش باد',
+    price: '249 ر.س',
+    image: 'https://cdn.salla.sa/WZNRy/bnT0UNz6FoIsg1CBUuIE3KCq8AS5B8DWjGTcSi9U.jpg',
+    url: url.controllers,
+  },
+];
+
+/** Real store products used as neutral browse picks for the offers panel. */
+const FEATURED_OFFERS: FeaturedPreview[] = [
+  {
+    name: 'BOOX Note Air6 C',
+    spec: 'شاشة 10.3" ملونة (Kaleido 3)',
+    price: '2,599 ر.س',
+    image:
+      'https://cdn.files.salla.network/other/1935517889/720a8394-d7f2-4fc4-a396-5aeb3690b256-original.webp',
+    url: url.bundles,
+  },
+  {
+    name: 'BOOX Go 7',
+    spec: 'شاشة 7" خفيفة ومريحة',
+    price: '999 ر.س',
+    image:
+      'https://cdn.salla.sa/WZNRy/bfe83fb2-ca01-4664-b692-0fa9bbea5153-1000x1000-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg',
+    url: url.bundles,
+  },
+];
+
 /** One panel per root id; the id is the contract with `HeaderMainMenu`. */
 export const IQRA_MEGA_PANELS: Record<string, MegaPanel> = {
   'iqraa-devices': {
-    featured: true,
+    featured: {
+      heading: 'أجهزة BOOX المميزة',
+      moreUrl: url.devices,
+      items: FEATURED_DEVICES,
+    },
     columns: [
       {
         title: 'أجهزة الحبر الإلكتروني',
@@ -165,6 +252,11 @@ export const IQRA_MEGA_PANELS: Record<string, MegaPanel> = {
   },
 
   'iqraa-accessories': {
+    featured: {
+      heading: 'ملحقات مختارة لجهازك',
+      moreUrl: url.casesCovers,
+      items: FEATURED_ACCESSORIES,
+    },
     columns: [
       {
         title: 'ملحقات الحبر الإلكتروني',
@@ -265,6 +357,11 @@ export const IQRA_MEGA_PANELS: Record<string, MegaPanel> = {
   },
 
   'iqraa-bundles': {
+    featured: {
+      heading: 'من المنتجات المعروضة',
+      moreUrl: url.bundles,
+      items: FEATURED_OFFERS,
+    },
     columns: [
       {
         title: 'الباقات والعروض',
@@ -313,37 +410,6 @@ export const IQRA_MEGA_PANELS: Record<string, MegaPanel> = {
     ],
   },
 };
-
-export interface FeaturedDevicePreview {
-  name: string;
-  spec: string;
-  price: string;
-  image: string;
-  url: string;
-  badge?: string;
-}
-
-/** Only devices with a verified, reachable product image are listed here. */
-export const FEATURED_DEVICES: FeaturedDevicePreview[] = [
-  {
-    name: 'BOOX Note Air6 C',
-    spec: 'شاشة 10.3" ملونة (Kaleido 3)',
-    price: '2,599 ر.س',
-    image:
-      'https://cdn.files.salla.network/other/1935517889/720a8394-d7f2-4fc4-a396-5aeb3690b256-original.webp',
-    url: url.devices,
-    badge: 'جديد',
-  },
-  {
-    name: 'BOOX Go 7',
-    spec: 'شاشة 7" خفيفة ومريحة',
-    price: '999 ر.س',
-    image:
-      'https://cdn.salla.sa/WZNRy/bfe83fb2-ca01-4664-b692-0fa9bbea5153-1000x1000-0ZELVvaOhc8ThQKPdUlq2XrO7y5R4LJq2qCn4Hv6.jpg',
-    url: url.devices,
-    badge: 'مختارة للقراءة',
-  },
-];
 
 /**
  * Six root links: the four approved sections, then the two site pages the

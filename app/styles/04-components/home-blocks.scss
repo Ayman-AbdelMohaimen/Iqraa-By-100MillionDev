@@ -1276,7 +1276,11 @@
   }
 
   .iqraa-hero-badge {
-    @apply flex items-center justify-end gap-2 text-right;
+    // `justify-end` is left in RTL, so the side list looked left-aligned even
+    // though it sits on the right. Logical `justify-start` packs each row at
+    // the inline start — the right edge in Arabic — keeping the list stacked
+    // and starting from the right as approved.
+    @apply flex items-center justify-start gap-2 text-right;
 
     .iqraa-hero-badge-icon {
       @apply flex h-5 w-5 shrink-0 items-center justify-center text-iqraa-primary;

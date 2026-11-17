@@ -1,6 +1,6 @@
-import { memo } from 'react';
+import { memo, type CSSProperties } from 'react';
 import { Link } from '@salla.sa/twilight-theme-engine/common';
-import { FEATURED_DEVICES, IQRA_MEGA_PANELS, url } from '../../lib/brandMenu';
+import { IQRA_MEGA_PANELS, type FeaturedPreview } from '../../lib/brandMenu';
 
 function CategoryIcon({ type }: { type: string }) {
   const iconProps = {
@@ -89,41 +89,55 @@ function CategoryIcon({ type }: { type: string }) {
   }
 }
 
-function FeaturedStrip() {
+/**
+ * Verified image-led picks are the last columns of a panel, not a strip under
+ * it. A strip squeezed their photos into 60px thumbnails and left two small
+ * cards in a three-column grid — the "broken" mega menu. Here each pick owns a
+ * full track with a large, whole product image, for devices and accessories
+ * alike.
+ */
+function FeaturedColumns({ items }: { items: FeaturedPreview[] }) {
   return (
-    <div className="iqraa-mega-featured-strip">
-      <div className="iqraa-mega-featured-header">
-        <span className="iqraa-mega-featured-tag">أجهزة BOOX المميزة</span>
-        <Link to={url.devices} className="iqraa-mega-featured-more">
-          عرض جميع الأجهزة &larr;
-        </Link>
-      </div>
-      <div className="iqraa-mega-featured-grid">
-        {FEATURED_DEVICES.map((device) => (
-          <Link key={device.name} to={device.url} className="iqraa-mega-device-card">
-            <span className="iqraa-mega-device-thumb">
-              <img src={device.image} alt="" loading="lazy" />
-              {device.badge && <span className="iqraa-mega-device-badge">{device.badge}</span>}
+    <>
+      {items.map((item) => (
+        <div key={item.name} className="iqraa-mega-column iqraa-mega-product-column">
+          <Link to={item.url} className="iqraa-mega-product-link">
+            <span className="iqraa-mega-product-media">
+              <img src={item.image} alt={item.name} loading="lazy" decoding="async" />
+              {item.badge && <span className="iqraa-mega-product-badge">{item.badge}</span>}
             </span>
-            <span className="iqraa-mega-device-info">
-              <span className="iqraa-mega-device-name">{device.name}</span>
-              <span className="iqraa-mega-device-spec">{device.spec}</span>
-              <span className="iqraa-mega-device-price">{device.price}</span>
-            </span>
+            <span className="iqraa-mega-product-name">{item.name}</span>
+            <span className="iqraa-mega-product-spec">{item.spec}</span>
+            <span className="iqraa-mega-product-price">{item.price}</span>
+            <span className="iqraa-mega-product-cta">تسوّق الآن &larr;</span>
           </Link>
-        ))}
-      </div>
-    </div>
+        </div>
+      ))}
+    </>
   );
 }
 
 /** The panel attached to a root menu item; each root has its own approved columns. */
 export const IqraaMegaPanel = memo(function IqraaMegaPanel({ panelId }: { panelId?: string }) {
   const panel = (panelId && IQRA_MEGA_PANELS[panelId]) || IQRA_MEGA_PANELS['iqraa-devices'];
+  // One grid track per real column. `auto-fit` used to wrap the last columns
+  // onto a second row whenever the panel narrowed, making them look tiny.
+  const columnCount = panel.columns.length + (panel.featured?.items.length ?? 0);
 
   return (
     <div className="iqraa-mega-menu-panel">
-      <div className="iqraa-mega-columns-grid">
+      {panel.featured && (
+        <div className="iqraa-mega-featured-header">
+          <span className="iqraa-mega-featured-tag">{panel.featured.heading}</span>
+          <Link to={panel.featured.moreUrl} className="iqraa-mega-featured-more">
+            عرض الكل &larr;
+          </Link>
+        </div>
+      )}
+      <div
+        className="iqraa-mega-columns-grid"
+        style={{ '--iqraa-mega-columns': columnCount } as CSSProperties}
+      >
         {panel.columns.map((column, columnIndex) => (
           <div key={`${column.title}-${columnIndex}`} className="iqraa-mega-column">
             <div className="iqraa-mega-column-header">
@@ -169,9 +183,8 @@ export const IqraaMegaPanel = memo(function IqraaMegaPanel({ panelId }: { panelI
             )}
           </div>
         ))}
+        {panel.featured && <FeaturedColumns items={panel.featured.items} />}
       </div>
-
-      {panel.featured && <FeaturedStrip />}
     </div>
   );
 });

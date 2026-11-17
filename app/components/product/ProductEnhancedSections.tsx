@@ -1,6 +1,5 @@
-import { memo, useState, useMemo } from 'react';
+import { memo, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { Product } from '@salla.sa/twilight-theme-engine/types';
-import { useTranslation } from '@salla.sa/twilight-theme-engine/i18n';
 import { ProductMetadata } from './ProductMetadata';
 
 export interface ProductEnhancedSectionsProps {
@@ -17,7 +16,6 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
   activeTab: controlledTab,
   onSelectTab,
 }: ProductEnhancedSectionsProps) {
-  const { t } = useTranslation();
   const [internalTab, setInternalTab] = useState<string>('overview');
   const activeTab = controlledTab ?? internalTab;
 
@@ -133,6 +131,41 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
 
   const totalReviews = product.rating?.count ?? reviewCount;
 
+  // One source of truth for the headers: the panels below match these ids, and
+  // the two device-only tabs disappear for accessories instead of leading to an
+  // empty panel.
+  const tabs = useMemo(
+    () => [
+      { id: 'overview', label: 'نظرة عامة' },
+      { id: 'specs', label: 'المواصفات' },
+      { id: 'box', label: 'ماذا في الصندوق؟' },
+      ...(!isAccessory
+        ? [
+            { id: 'accessories', label: 'الملحقات المتوافقة' },
+            { id: 'comparison', label: 'المقارنة' },
+          ]
+        : []),
+      { id: 'reviews', label: `المراجعات (${totalReviews})` },
+    ],
+    [isAccessory, totalReviews]
+  );
+
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  /** WAI-ARIA tab keyboard pattern: arrows move between tabs, Home/End jump. */
+  const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let next = index;
+    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+    else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = tabs.length - 1;
+    else return;
+
+    event.preventDefault();
+    handleTabChange(tabs[next].id);
+    tabRefs.current[next]?.focus();
+  };
+
   return (
     <div id="product-compatibility" className="iqraa-pdp-sections mt-12 w-full">
       {/* 1. Trust Badges Strip (4 Pillars) */}
@@ -173,107 +206,50 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
       </div>
 
       {/* 2. Navigation Tabs Bar */}
-      <div className="pdp-tabs-nav mb-8 flex border-b border-gray-200 overflow-x-auto scrollbar-none">
-        <button
-          type="button"
-          onClick={() => handleTabChange('overview')}
-          className={`pdp-tab-btn relative px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${
-            activeTab === 'overview'
-              ? 'text-primary'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          نظرة عامة
-          {activeTab === 'overview' && (
-            <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />
-          )}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => handleTabChange('specs')}
-          className={`pdp-tab-btn relative px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${
-            activeTab === 'specs'
-              ? 'text-primary'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          المواصفات
-          {activeTab === 'specs' && (
-            <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />
-          )}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => handleTabChange('box')}
-          className={`pdp-tab-btn relative px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${
-            activeTab === 'box'
-              ? 'text-primary'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          ماذا في الصندوق؟
-          {activeTab === 'box' && (
-            <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />
-          )}
-        </button>
-
-        {!isAccessory && (
-          <button
-            type="button"
-            onClick={() => handleTabChange('accessories')}
-            className={`pdp-tab-btn relative px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${
-              activeTab === 'accessories'
-                ? 'text-primary'
-                : 'text-gray-500 hover:text-gray-900'
-            }`}
-          >
-            الملحقات المتوافقة
-            {activeTab === 'accessories' && (
-              <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />
-            )}
-          </button>
-        )}
-
-        {!isAccessory && (
-          <button
-            type="button"
-            onClick={() => handleTabChange('comparison')}
-            className={`pdp-tab-btn relative px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${
-              activeTab === 'comparison'
-                ? 'text-primary'
-                : 'text-gray-500 hover:text-gray-900'
-            }`}
-          >
-            المقارنة
-            {activeTab === 'comparison' && (
-              <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />
-            )}
-          </button>
-        )}
-
-        <button
-          type="button"
-          onClick={() => handleTabChange('reviews')}
-          className={`pdp-tab-btn relative px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${
-            activeTab === 'reviews'
-              ? 'text-primary'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          المراجعات ({totalReviews})
-          {activeTab === 'reviews' && (
-            <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />
-          )}
-        </button>
+      <div
+        className="pdp-tabs-nav mb-8 flex border-b border-gray-200 overflow-x-auto scrollbar-none"
+        role="tablist"
+        aria-label="تبويبات تفاصيل المنتج"
+        aria-orientation="horizontal"
+      >
+        {tabs.map((tab, index) => {
+          const selected = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              ref={(node) => {
+                tabRefs.current[index] = node;
+              }}
+              type="button"
+              id={`pdp-tab-${tab.id}`}
+              role="tab"
+              aria-selected={selected}
+              aria-controls={`pdp-panel-${tab.id}`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => handleTabChange(tab.id)}
+              onKeyDown={(event) => onTabKeyDown(event, index)}
+              className={`pdp-tab-btn relative text-sm font-bold whitespace-nowrap transition-colors ${
+                selected ? 'text-primary' : 'text-gray-500 hover:text-gray-900'
+              }`}
+            >
+              {tab.label}
+              {selected && <span className="absolute bottom-0 inset-x-0 h-0.5 bg-primary" />}
+            </button>
+          );
+        })}
       </div>
 
       {/* 3. Tab Contents */}
       <div className="pdp-tab-content">
         {/* TAB 1: نظرة عامة (Overview) */}
         {activeTab === 'overview' && (
-          <div className="pdp-overview-view space-y-10">
+          <div
+            className="pdp-overview-view space-y-10"
+            id="pdp-panel-overview"
+            role="tabpanel"
+            aria-labelledby="pdp-tab-overview"
+            tabIndex={0}
+          >
             {/* Highlights Section */}
             <section className="pdp-highlights">
               <h2 className="mb-6 text-xl font-bold text-gray-900">أبرز المميزات</h2>
@@ -389,7 +365,13 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
 
         {/* TAB 2: المواصفات (Specifications) */}
         {activeTab === 'specs' && (
-          <div className="pdp-specs-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
+          <div
+            className="pdp-specs-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
+            id="pdp-panel-specs"
+            role="tabpanel"
+            aria-labelledby="pdp-tab-specs"
+            tabIndex={0}
+          >
             <h3 className="mb-6 text-xl font-bold text-gray-900">المواصفات الفنية الكاملة</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-start text-sm">
@@ -445,7 +427,13 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
 
         {/* TAB 3: ماذا في الصندوق؟ (What's in the box?) */}
         {activeTab === 'box' && (
-          <div className="pdp-box-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
+          <div
+            className="pdp-box-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
+            id="pdp-panel-box"
+            role="tabpanel"
+            aria-labelledby="pdp-tab-box"
+            tabIndex={0}
+          >
             <h3 className="mb-6 text-xl font-bold text-gray-900">محتويات العبوة الأصلية</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {boxContents.map((item, idx) => (
@@ -465,7 +453,13 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
 
         {/* TAB 4: الملحقات المتوافقة (Accessories) */}
         {activeTab === 'accessories' && (
-          <div className="pdp-accessories-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
+          <div
+            className="pdp-accessories-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
+            id="pdp-panel-accessories"
+            role="tabpanel"
+            aria-labelledby="pdp-tab-accessories"
+            tabIndex={0}
+          >
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-gray-900">الملحقات المتوافقة مع هذا الجهاز</h3>
@@ -517,7 +511,13 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
 
         {/* TAB 5: المقارنة (Comparison) */}
         {activeTab === 'comparison' && (
-          <div className="pdp-comparison-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
+          <div
+            className="pdp-comparison-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
+            id="pdp-panel-comparison"
+            role="tabpanel"
+            aria-labelledby="pdp-tab-comparison"
+            tabIndex={0}
+          >
             <h3 className="mb-6 text-xl font-bold text-gray-900">مقارنة موديلات أجهزة BOOX</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-center text-sm border-collapse">
@@ -567,7 +567,13 @@ export const ProductEnhancedSections = memo(function ProductEnhancedSections({
 
         {/* TAB 6: المراجعات (Reviews) */}
         {activeTab === 'reviews' && (
-          <div className="pdp-reviews-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
+          <div
+            className="pdp-reviews-view rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
+            id="pdp-panel-reviews"
+            role="tabpanel"
+            aria-labelledby="pdp-tab-reviews"
+            tabIndex={0}
+          >
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-gray-900">تقييمات ومراجعات العملاء</h3>

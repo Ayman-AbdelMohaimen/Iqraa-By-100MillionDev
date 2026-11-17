@@ -1,0 +1,66 @@
+/* =========================================================================
+   Back-to-top control — one fixed circular arrow, mounted globally in
+   ThemeLayout. Sits above page content but below the sheets (z-210) and the
+   mobile bottom bar (z-220), so neither is ever blocked by it.
+   Markup: app/components/layout/BackToTop.tsx.
+   ========================================================================= */
+
+.iqraa-back-to-top {
+  @apply fixed inline-flex items-center justify-center;
+
+  /* Logical inset: the right edge in LTR, the left edge in RTL. */
+  inset-inline-end: 1.25rem;
+  /* Clears the mobile bottom bar (52px + 12px gap) and its safe-area inset. */
+  bottom: calc(5.75rem + var(--safe-bottom, 0px));
+  z-index: 150;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(139, 90, 147, 0.16);
+  border-radius: 9999px;
+  background-color: var(--iqraa-primary, #8b5a93);
+  color: #ffffff;
+  box-shadow: 0 8px 24px -6px rgba(61, 45, 72, 0.4);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &:hover {
+    background-color: var(--iqraa-primary-deep, #5a2f64);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(139, 90, 147, 0.45);
+  }
+
+  @media (min-width: 768px) {
+    inset-inline-end: 2rem;
+    bottom: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iqraa-back-to-top {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}

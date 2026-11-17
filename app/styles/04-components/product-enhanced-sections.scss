@@ -23,12 +23,26 @@
   @apply border-b border-gray-200 flex items-center gap-2;
 
   .pdp-tab-btn {
+    // Padding lives only here. The JSX used to carry a competing `px-6 py-4`,
+    // so the active tab's underline never quite matched its neighbours.
     @apply relative py-4 px-5 text-sm font-bold transition-all;
 
-    &:hover {
+    &:hover,
+    &[aria-selected='true'] {
       @apply text-primary;
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--iqraa-primary, #8b5a93);
+      outline-offset: -2px;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
   }
+}
+
+.pdp-tab-content [role='tabpanel']:focus-visible {
+  outline: 2px solid var(--iqraa-primary, #8b5a93);
+  outline-offset: 2px;
 }
 
 .pdp-highlights {

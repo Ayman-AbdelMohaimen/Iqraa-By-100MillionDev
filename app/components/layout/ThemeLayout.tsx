@@ -5,6 +5,7 @@ import themeTranslations from 'virtual:twilight/theme-translations';
 import { useTwilight } from '@salla.sa/twilight-theme-engine/providers';
 import { useTranslation } from '@salla.sa/twilight-theme-engine/i18n';
 import { useUser } from '@salla.sa/twilight-theme-engine/hooks/useUser';
+import { BackToTop } from './BackToTop';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { ImportantLinksSheet } from './ImportantLinksSheet';
@@ -202,6 +203,10 @@ export function ThemeLayout({ children }: ThemeLayoutProps) {
           onCloseSecondSheet={() => setImportantLinksOpen(false)}
         />
       </div>
+
+      {/* Global scroll-to-top arrow. Outside `.app-inner` so no page section's
+          stacking context can clip it; hidden until the shopper scrolls. */}
+      <BackToTop />
 
       <MobileAccountSheet
         open={accountOpen}
