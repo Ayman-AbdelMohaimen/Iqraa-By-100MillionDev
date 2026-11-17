@@ -8,7 +8,10 @@ function CategoryIcon({ type }: { type: string }) {
     height: 18,
     viewBox: '0 0 24 24',
     fill: 'none',
-    stroke: '#8B5A93',
+    // Icons must follow the icon box colour: purple on the resting ivory tile,
+    // white when the tile flips to primary on hover. A fixed purple stroke
+    // disappears against the hover background.
+    stroke: 'currentColor',
     strokeWidth: 2,
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,
@@ -29,7 +32,7 @@ function CategoryIcon({ type }: { type: string }) {
       );
     case 'palette':
       return (
-        <svg {...iconProps}><circle cx="13.5" cy="6.5" r=".5" fill="#8B5A93"/><circle cx="17.5" cy="10.5" r=".5" fill="#8B5A93"/><circle cx="8.5" cy="7.5" r=".5" fill="#8B5A93"/><circle cx="6.5" cy="12.5" r=".5" fill="#8B5A93"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
+        <svg {...iconProps}><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
       );
     case 'mobile':
       return (
@@ -57,7 +60,7 @@ function CategoryIcon({ type }: { type: string }) {
       );
     case 'controls':
       return (
-        <svg {...iconProps}><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2" fill="#fff"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="16" cy="17" r="2" fill="#fff"/></svg>
+        <svg {...iconProps}><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2" fill="currentColor"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="16" cy="17" r="2" fill="currentColor"/></svg>
       );
     case 'timer':
       return (

@@ -75,17 +75,25 @@
   list-style: none;
 }
 
-// Scoped to `.s-menu-sub-menu` so these win over the engine's generic
-// `.s-menu-sub-menu a` rule (0,1,1), which otherwise forces nowrap grey rows.
+// The SDK injects a much stronger rule than `.s-menu-sub-menu a` (0,1,1):
+// `.site-header--default .site-header__mainmenu .s-menu-sub-menu a` (0,3,1)
+// sets `justify-content: space-between`, which pushes the icon to one edge and
+// the title to the other. Every anchor in this panel must carry the same parent
+// chain to win, otherwise the icon looks detached from its label.
+.site-header--default .site-header__mainmenu .s-menu-sub-menu .iqraa-mega-link,
 .s-menu-sub-menu .iqraa-mega-link {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 0.625rem;
+  width: auto;
   padding: 0.375rem 0.5rem;
   border-radius: 0.5rem;
   text-decoration: none;
   white-space: normal;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: #272330;
   transition: all 0.2s ease;
 
   &:hover {
@@ -165,6 +173,7 @@
   gap: 0.375rem;
 }
 
+.site-header--default .site-header__mainmenu .s-menu-sub-menu .iqraa-mega-chip,
 .s-menu-sub-menu .iqraa-mega-chip {
   display: inline-flex;
   align-items: center;
@@ -204,6 +213,7 @@
   color: #1e1b26;
 }
 
+.site-header--default .site-header__mainmenu .s-menu-sub-menu .iqraa-mega-featured-more,
 .s-menu-sub-menu .iqraa-mega-featured-more {
   display: flex;
   align-items: center;
@@ -226,6 +236,7 @@
   gap: 1rem;
 }
 
+.site-header--default .site-header__mainmenu .s-menu-sub-menu .iqraa-mega-device-card,
 .s-menu-sub-menu .iqraa-mega-device-card {
   display: flex;
   align-items: center;
